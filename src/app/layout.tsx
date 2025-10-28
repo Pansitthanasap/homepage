@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 const prompt = Prompt({
-  weight: ["400", "700"],
+  weight: ["300", "400", "700"],
   variable: "--font-prompt",
   subsets: ["latin"],
 });
@@ -22,12 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${prompt.variable} ${prompt.className} antialiased`}
-      >
-        <Navbar />
+      <body className={`${prompt.variable} ${prompt.className} antialiased`}>
+        {/* <Navbar /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );
