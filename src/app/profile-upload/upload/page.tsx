@@ -1,12 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import exit_icon from "../../../public/exit-icon.png";
+import exit_icon from "../../../../public/exit-icon.png";
+import { useState } from "react";
 
 const ResumeUploadPage = () => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleModal = () => {
+    setOpenModal(!openModal);
+  };
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    // Instead of submitting immediately, open modal
+    setOpenModal(true);
+  };
+
+  const handleAccept = () => {
+    setOpenModal(false);
     alert("ส่งใบสมัครเรียบร้อย ✅");
+  };
+  const handleClose = () => {
+    window.location.href = "/profile-upload";
   };
 
   return (
@@ -17,8 +33,9 @@ const ResumeUploadPage = () => {
           <Image
             src={exit_icon}
             alt="Exit Icon"
-            className="w-[25px] h-[25px] md:w-[30px] md:h-[30px]"
+            className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] cursor-pointer"
             draggable={false}
+            onClick={handleClose}
           />
         </div>
         <div className="font-medium text-[24px] md:text-[32px] leading-[140%] tracking-[-2.5%] text-center align-middle">
@@ -111,10 +128,11 @@ const ResumeUploadPage = () => {
               type="file"
               id="resume"
               accept="application/pdf"
+              required
               className="flex items-center border border-black text-gray-900 text-[18px] md:text-[20px] font-[300] rounded-[10px] 
-  w-full md:w-[509px] h-[50px] md:h-[60px] p-0 overflow-hidden
-  file:h-full file:px-4 file:py-0 file:rounded-[10px] file:border-0 file:text-[16px] file:font-medium 
-  file:bg-[#E5E7EB] file:text-black hover:file:bg-[#D1D5DB] cursor-pointer"
+              w-full md:w-[509px] h-[50px] md:h-[60px] p-0 overflow-hidden
+              file:h-full file:px-4 file:py-0 file:rounded-[10px] file:border-0 file:text-[16px] file:font-medium 
+              file:bg-[#E5E7EB] file:text-black hover:file:bg-[#D1D5DB] cursor-pointer"
             />
           </div>
 
@@ -129,6 +147,50 @@ const ResumeUploadPage = () => {
           </div>
         </div>
       </form>
+
+      {/* Modal */}
+      {openModal && (
+        <div
+          className="fixed h-[927px] inset-0 z-50 flex justify-center items-center bg-black/40 backdrop-blur-sm"
+          onClick={() => setOpenModal(false)}
+        >
+          <div
+            className="bg-white rounded-[20px] shadow-lg w-[90%] max-w-[600px] p-6"
+            onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
+          >
+            <div className="flex justify-between items-center border-b pb-3">
+              <h3 className="text-xl font-semibold text-gray-900">นโยบาย</h3>
+              <button
+                onClick={() => setOpenModal(false)}
+                className="text-gray-400 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="mt-4 text-gray-600 space-y-3">
+              <p>
+                โปรดตรวจสอบข้อมูลของคุณก่อนส่งใบสมัคร
+                เพื่อให้มั่นใจว่าข้อมูลถูกต้อง และเป็นความจริงทั้งหมด
+              </p>
+              <p>เมื่อคุณกดยืนยัน ระบบจะดำเนินการส่งใบสมัครของคุณทันที</p>
+            </div>
+            <div className="flex justify-end gap-3 mt-6 border-t pt-4">
+              <button
+                onClick={handleAccept}
+                className="bg-blue-700 hover:bg-blue-800 text-white font-medium px-5 py-2 rounded-lg"
+              >
+                I accept
+              </button>
+              <button
+                onClick={() => setOpenModal(false)}
+                className="border border-gray-300 text-gray-700 hover:bg-gray-100 px-5 py-2 rounded-lg"
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
