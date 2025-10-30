@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Prompt } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 
 const prompt = Prompt({
   weight: ["300", "400", "700"],
@@ -23,9 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${prompt.variable} ${prompt.className} antialiased`}>
-        {/* <Navbar /> */}
         {children}
-        {/* <Footer /> */}
       </body>
     </html>
   );

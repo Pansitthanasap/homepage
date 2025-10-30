@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="relative w-full h-80">
+    <footer className="relative w-full lg:h-80 md:h-40">
       <svg
         viewBox="0 0 1440 512"
         fill="none"
