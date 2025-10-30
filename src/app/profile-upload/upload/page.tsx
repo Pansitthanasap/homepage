@@ -7,10 +7,6 @@ import { useState } from "react";
 const ResumeUploadPage = () => {
   const [openModal, setOpenModal] = useState(false);
 
-  const handleModal = () => {
-    setOpenModal(!openModal);
-  };
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     // Instead of submitting immediately, open modal
@@ -114,6 +110,22 @@ const ResumeUploadPage = () => {
                 required
               />
             </div>
+          </div>
+          {/* Position */}
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full gap-2 md:gap-0">
+            <label
+              htmlFor="position"
+              className="font-[300] text-[24px] md:text-[32px] leading-[85%] tracking-[-2.5%]"
+            >
+              ระบุตำแหน่งที่สนใจ
+            </label>
+            <input
+              type="text"
+              id="position"
+              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-[300] rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
+              placeholder="ตำแหน่ง"
+              required
+            />
           </div>
 
           {/* PDF Upload */}
