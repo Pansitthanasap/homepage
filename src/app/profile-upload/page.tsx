@@ -37,7 +37,7 @@ const ProfileUploadPage = () => {
         </div>
 
         {/* Upload Box */}
-        <div className="relative flex flex-col h-auto w-full max-w-md bg-white rounded-[10px] p-6 px-20 gap-30 items-center justify-center">
+        <div className="relative flex flex-col h-auto w-full max-w-md bg-white rounded-[10px] p-6 px-20 py-10 gap-20 items-center justify-center">
           <Image src={portfolio} alt="portfolio" className="w-[92px] h-auto" />
           <div className="flex flex-col gap-10">
             <div className="text-[36px] font-bold leading-[85%] tracking-[-0.025em] text-center align-middle">
