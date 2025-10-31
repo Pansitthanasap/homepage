@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import profile_upload_bg from "../../../../public/profile-upload-bg.png";
+import profile_upload_bg from "../../../public/profile-upload-bg.png";
 
 const ProfileUploadPage = () => {
   return (

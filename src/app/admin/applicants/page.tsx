@@ -63,11 +63,7 @@ const ResumeUploadPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F5F2]">
       {/* Header */}
-      <div className="flex items-center px-[30px] md:px-[38px] py-[20px] md:py-[30px] h-[80px] md:h-[90px] shadow-[0px_4px_20px_0px_#00000040]">
-        <div className="font-medium text-[24px] md:text-[32px] leading-[140%] tracking-[-2.5%] text-center align-middle">
-          Dashboard
-        </div>
-      </div>
+      <div className="flex h-[50px]"></div>
 
       {/* Subtitle */}
       <div className="flex flex-col justify-center items-center font-[300] text-center px-6 pt-[30px] md:pt-[40px] text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
