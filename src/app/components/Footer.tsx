@@ -1,3 +1,6 @@
+import Image from "next/image";
+import logoSmall from "../../../public/logo-small-no-bg.png";
+
 export default function Footer() {
   return (
     <footer className="relative w-full lg:h-80 md:h-40">
@@ -62,6 +65,9 @@ export default function Footer() {
           />
         </defs>
       </svg>
+      <div className="absolute left-0 bottom-0 bg-green-100 w-full h-80 flex flex-col">
+        <Image src={logoSmall} alt="logo"/>
+      </div>
     </footer>
   );
 }
