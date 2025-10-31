@@ -1,9 +1,18 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
+
+interface ContactInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  title: string;
+  description: string;
+}
 
 const ResumeUploadPage = () => {
-  const [informations, setInformations] = useState([
+  const [informations, setInformations] = useState<ContactInfo[]>([
     {
       firstName: "Nathan",
       lastName: "Boonkert",
@@ -38,12 +47,12 @@ const ResumeUploadPage = () => {
     key: null,
     direction: "asc",
   });
-  const [searchField, setSearchField] = useState("title");
+  const [searchField, setSearchField] = useState<keyof ContactInfo>("title");
   const [searchValue, setSearchValue] = useState("");
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
   // Sorting function
-  const sortBy = (key: string) => {
+  const sortBy = (key: keyof ContactInfo) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc")
       direction = "desc";
@@ -78,17 +87,18 @@ const ResumeUploadPage = () => {
       <div className="flex h-[50px]" />
 
       {/* Subtitle */}
-      <div className="flex flex-col justify-center items-center font-[300] text-center px-6 pt-[30px] md:pt-[40px] text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
+      <div className="flex flex-col justify-center items-center font-light text-center px-6 pt-[30px] md:pt-10 text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
         การติดต่อทั้งหมด
       </div>
 
       {/* Search Section */}
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-6 px-4">
         <select
+          title="Search Field"
           className="border rounded px-4 py-2 w-full md:w-48"
           value={searchField}
           onChange={(e) => {
-            setSearchField(e.target.value);
+            setSearchField(e.target.value as keyof ContactInfo);
             setSearchValue("");
           }}
         >
@@ -122,7 +132,7 @@ const ResumeUploadPage = () => {
                   <th
                     key={col}
                     className="py-3 px-6 text-left cursor-pointer"
-                    onClick={() => sortBy(col)}
+                    onClick={() => sortBy(col as keyof ContactInfo)}
                   >
                     {col === "firstName"
                       ? "First Name"
@@ -168,7 +178,7 @@ const ResumeUploadPage = () => {
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <div className="max-w-80 overflow-y-auto whitespace-normal break-words pr-2">
+                        <div className="max-w-80 overflow-y-auto whitespace-normal wrap-break-word pr-2">
                           <p className="text-sm text-gray-600 mt-1">
                             <span className="font-semibold">Description:</span>{" "}
                             {info.description}

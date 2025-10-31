@@ -2,15 +2,26 @@
 
 import { useState } from "react";
 
+interface ApplicantInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  jobTitle: string;
+  fileName: string;
+  fileUrl: string;
+}
+
 const ResumeUploadPage = () => {
-  const [informations, setInformations] = useState([
+  const [informations, setInformations] = useState<ApplicantInfo[]>([
     {
       firstName: "Nathan",
       lastName: "Boonkert",
       email: "nathan@example.com",
       phone: "0812345678",
       jobTitle: "Engineer",
-      file: null,
+      fileName: "resume.pdf",
+      fileUrl: "/resumes/nathan_boonkert_resume.pdf",
     },
     {
       firstName: "Chopper",
@@ -18,7 +29,8 @@ const ResumeUploadPage = () => {
       email: "chopper@example.com",
       phone: "0812345678",
       jobTitle: "Housemaid",
-      file: "resume.pdf",
+      fileName: "chopper_resume.pdf",
+      fileUrl: "/resumes/chopper_pakorn_resume.pdf",
     },
     {
       firstName: "Yai",
@@ -26,17 +38,21 @@ const ResumeUploadPage = () => {
       email: "yai@example.com",
       phone: "0812345678",
       jobTitle: "Homeless",
-      file: null,
+      fileName: "yai_resume.pdf",
+      fileUrl: "/resumes/yai_mak_resume.pdf",
     },
   ]);
 
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [searchField, setSearchField] = useState("jobTitle"); // default jobTitle
-  const [searchValue, setSearchValue] = useState("");
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof ApplicantInfo | null;
+    direction: "asc" | "desc";
+  }>({ key: null, direction: "asc" });
+  const [searchField, setSearchField] = useState<keyof ApplicantInfo>("jobTitle"); // default jobTitle
+  const [searchValue, setSearchValue] = useState<string>("");
 
   // Sorting function
-  const sortBy = (key) => {
-    let direction = "asc";
+  const sortBy = (key: keyof ApplicantInfo) => {
+    let direction: "asc" | "desc" = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc")
       direction = "desc";
 
@@ -66,17 +82,18 @@ const ResumeUploadPage = () => {
       <div className="flex h-[50px]"></div>
 
       {/* Subtitle */}
-      <div className="flex flex-col justify-center items-center font-[300] text-center px-6 pt-[30px] md:pt-[40px] text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
+      <div className="flex flex-col justify-center items-center font-light text-center px-6 pt-[30px] md:pt-10 text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
         ข้อมูลผู้สมัครงานทั้งหมด
       </div>
 
       {/* Search */}
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-6 px-4">
         <select
+          title="Search Field"
           className="border rounded px-4 py-2 w-full md:w-48"
           value={searchField}
           onChange={(e) => {
-            setSearchField(e.target.value);
+            setSearchField(e.target.value as keyof ApplicantInfo);
             setSearchValue(""); // clear input when changing field
           }}
         >
@@ -134,7 +151,7 @@ const ResumeUploadPage = () => {
                     className="py-3 px-6 text-left cursor-pointer"
                     onClick={() =>
                       ["firstName", "lastName", "jobTitle"].includes(col) &&
-                      sortBy(col)
+                      sortBy(col as keyof ApplicantInfo)
                     }
                   >
                     {col === "firstName"
@@ -169,7 +186,7 @@ const ResumeUploadPage = () => {
                   <td className="py-3 px-6">{info.email}</td>
                   <td className="py-3 px-6">{info.phone}</td>
                   <td className="py-3 px-6">
-                    {info.file ? info.file : "Not Found"}
+                    {info.fileName}
                   </td>
                 </tr>
               ))}
