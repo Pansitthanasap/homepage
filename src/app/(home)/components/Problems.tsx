@@ -11,19 +11,19 @@ export default function Problems() {
             <div className="text-gray-500 text-4xl w-full">เมื่อธุรกิจเริ่มโตขึ้น… แต่ <span className="font-bold">คน</span> ยังไม่พร้อม <br /> นี่คือ 4 ปัญหาหลักที่เราพบในทุกบริษัทก่อนเริ่มใช้บริการของเรา</div>
             <div className="h-11/12 w-11/12 flex flex-row justify-between">
                 <div className="flex flex-col w-3/13 h-full gap-2">
-                    <div className="flex-1"><Image src={helpWanted} alt="Help Wanted" className="object-fill rounded-4xl" /></div>
+                    <div className="flex-1"><Image src={helpWanted} alt="Help Wanted" loading="eager" className="object-fill rounded-4xl" /></div>
                     <div className="w-full text-2xl font-bold text-center text-black">ขาดแคลนบุคลากรคุณภาพ</div>
                 </div>
                 <div className="flex flex-col w-3/13 h-full gap-2">
-                    <div className="flex-1"><Image src={noHR} alt="No HR" className="object-fill rounded-4xl" /></div>
+                    <div className="flex-1"><Image src={noHR} alt="No HR" loading="eager" className="object-fill rounded-4xl" /></div>
                     <div className="w-full text-2xl font-bold text-center text-black">ไม่มีฝ่าย HR ประจำ</div>
                 </div>
                 <div className="flex flex-col w-3/13 h-full gap-2">
-                    <div className="flex-1"><Image src={unclearManagement} alt="Unclear Management" className="object-fill rounded-4xl" /></div>
+                    <div className="flex-1"><Image src={unclearManagement} alt="Unclear Management" loading="eager" className="object-fill rounded-4xl" /></div>
                     <div className="w-full text-2xl font-bold text-center text-black">ขาดระบบบริหารคนที่ชัดเจน</div>
                 </div>
                 <div className="flex flex-col w-3/13 h-full gap-2">
-                    <div className="flex-1"><Image src={highTurnover} alt="High Turnover" className="object-fill rounded-4xl" /></div>
+                    <div className="flex-1"><Image src={highTurnover} alt="High Turnover" loading="eager" className="object-fill rounded-4xl" /></div>
                     <div className="w-full text-2xl font-bold text-center text-black">หาคนยาก / คนลาออกบ่อย</div>
                 </div>
             </div>
