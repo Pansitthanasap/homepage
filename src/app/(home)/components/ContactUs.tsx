@@ -78,7 +78,7 @@ export default function ContactUs() {
               <option value="ข้อมูลนักลงทุน" />
               <option value="สมัครงาน" />
               <option value="แนะนำ/ติชม และบริการ" />
-              <option value="ข้อมูลผู้ใช้งานเว็บไซต์" />
+              <option value="สมัครใช้แพ็กเกจของเรา" />
             </datalist>
 
             <textarea

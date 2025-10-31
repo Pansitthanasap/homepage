@@ -1,22 +1,108 @@
+import Image from "next/image";
+import check from "../../../../public/check.svg";
 export default function Packages() {
-    return (
-        <div className="relative flex flex-col h-screen bg-[#2D2D2D] px-10 py-16 justify-center items-center gap-4" id="packages">
-            <svg viewBox="0 0 1440 597" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute left-0 top-0 w-full">
-                <g clipPath="url(#clip0_15_108)">
-                    <path d="M1065.11 -270.245C1126.72 -284.782 1197.67 -284.502 1249.34 -243.824C1304.4 -200.478 1319.66 -126.456 1301.28 -35.0193C1276.62 87.6292 1217.17 166.814 1136.66 212.973C1086.94 241.479 1031.41 256.089 975.379 262.465C1048.08 340.322 1148.78 406.205 1248.13 448.892C1311.58 476.154 1371.87 492.801 1420.89 497.6C1472.45 502.648 1500.77 493.671 1512.3 483.701L1574.44 555.554C1532.51 591.821 1470.41 597.903 1411.63 592.148C1350.3 586.143 1280.33 566.124 1210.63 536.176C1079.61 479.882 940.27 384.395 855.069 265.514C829.306 264.278 803.848 262.063 779.162 259.341C721.853 253.021 648.277 223.365 574.221 186.25C498.609 148.356 416.984 99.8095 341.837 51.0705C266.647 2.30379 197.117 -47.1922 145.64 -87.2976C119.996 -107.276 98.1897 -125.422 82.2314 -140.298C74.339 -147.655 67.057 -154.969 61.2842 -161.82C58.4134 -165.227 55.2557 -169.294 52.4746 -173.795C50.1813 -177.506 45.7015 -185.321 44 -195.659L137.738 -211.087C136.444 -218.949 133.326 -223.676 133.291 -223.731C132.773 -224.57 132.783 -224.399 133.935 -223.032C136.207 -220.335 140.393 -215.955 147.008 -209.789C160.064 -197.618 179.426 -181.404 204.025 -162.239C253.032 -124.058 320.284 -76.1403 393.531 -28.6336C466.821 18.9008 545.288 65.4879 616.785 101.32C689.837 137.931 750.385 160.591 789.576 164.913C792.968 165.287 796.364 165.648 799.763 165.998C777.33 109.832 767.71 49.3251 777.425 -13.618C787.529 -79.0825 832.135 -136.358 883.605 -178.842C935.908 -222.012 1001.56 -255.248 1065.11 -270.245ZM1190.58 -169.179C1172.58 -183.347 1137.47 -189.711 1086.93 -177.785C1038.34 -166.318 985.766 -139.985 944.079 -105.576C901.56 -70.4804 876.413 -32.1653 871.313 0.87326C862.485 58.0762 876.082 115.529 907.577 171.526C976.556 170.609 1039.27 159.303 1089.41 130.557C1143.39 99.6108 1188.22 45.3525 1208.14 -53.742C1223.2 -128.652 1205.19 -157.679 1190.58 -169.179Z" fill="url(#paint0_linear_15_108)" />
-                </g>
-                <defs>
-                    <linearGradient id="paint0_linear_15_108" x1="233.369" y1="60.6275" x2="1544.87" y2="365.627" gradientUnits="userSpaceOnUse">
-                        <stop offset="0.0721154" />
-                        <stop offset="1" stopColor="#64B386" />
-                    </linearGradient>
-                    <clipPath id="clip0_15_108">
-                        <rect width="1440" height="597" fill="white" />
-                    </clipPath>
-                </defs>
-            </svg>
-            <div className="text-6xl font-bold w-full z-1"><span className="text-[#64B386]">HR Outsource</span> ที่เหมาะกับธุรกิจของคุณ</div>
-            <div className="h-11/12 w-11/12 bg-white z-1"></div>
-        </div>
-    );
+  const packages = [
+    {
+      title: "Starter HR Package",
+      price: "15,900 บาท / เดือน",
+      for: "ธุรกิจเริ่มต้น / SME เล็ก",
+      description: [
+        "วางระบบ HR เบื้องต้น",
+        "มี Template เอกสาร",
+        "ประหยัดต้นทุน",
+      ],
+    },
+    {
+      title: "Growth Plan Package",
+      price: "25,000 บาท / เดือน",
+      for: "SME มี 10–30 คน",
+      description: ["ได้ทั้ง HR System", "Recruitment", "Career Path"],
+    },
+    {
+      title: "PRO Outsource Package",
+      price: "39,000 บาท / เดือน",
+      for: "ธุรกิจหลายสาขา / ไม่มี HR",
+      description: ["ทีม HR ครบวงจร", "ดูแลแทนทั้งหมด", "รายงานตรง CEO"],
+    },
+  ];
+
+  return (
+    <div
+      className="relative flex flex-col h-screen bg-[#2D2D2D] px-10 py-16 justify-center items-center gap-4"
+      id="packages"
+    >
+      <svg
+        viewBox="0 0 1440 597"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute left-0 top-0 w-full"
+      >
+        <g clipPath="url(#clip0_15_108)">
+          <path
+            d="M1065.11 -270.245C1126.72 -284.782 1197.67 -284.502 1249.34 -243.824C1304.4 -200.478 1319.66 -126.456 1301.28 -35.0193C1276.62 87.6292 1217.17 166.814 1136.66 212.973C1086.94 241.479 1031.41 256.089 975.379 262.465C1048.08 340.322 1148.78 406.205 1248.13 448.892C1311.58 476.154 1371.87 492.801 1420.89 497.6C1472.45 502.648 1500.77 493.671 1512.3 483.701L1574.44 555.554C1532.51 591.821 1470.41 597.903 1411.63 592.148C1350.3 586.143 1280.33 566.124 1210.63 536.176C1079.61 479.882 940.27 384.395 855.069 265.514C829.306 264.278 803.848 262.063 779.162 259.341C721.853 253.021 648.277 223.365 574.221 186.25C498.609 148.356 416.984 99.8095 341.837 51.0705C266.647 2.30379 197.117 -47.1922 145.64 -87.2976C119.996 -107.276 98.1897 -125.422 82.2314 -140.298C74.339 -147.655 67.057 -154.969 61.2842 -161.82C58.4134 -165.227 55.2557 -169.294 52.4746 -173.795C50.1813 -177.506 45.7015 -185.321 44 -195.659L137.738 -211.087C136.444 -218.949 133.326 -223.676 133.291 -223.731C132.773 -224.57 132.783 -224.399 133.935 -223.032C136.207 -220.335 140.393 -215.955 147.008 -209.789C160.064 -197.618 179.426 -181.404 204.025 -162.239C253.032 -124.058 320.284 -76.1403 393.531 -28.6336C466.821 18.9008 545.288 65.4879 616.785 101.32C689.837 137.931 750.385 160.591 789.576 164.913C792.968 165.287 796.364 165.648 799.763 165.998C777.33 109.832 767.71 49.3251 777.425 -13.618C787.529 -79.0825 832.135 -136.358 883.605 -178.842C935.908 -222.012 1001.56 -255.248 1065.11 -270.245ZM1190.58 -169.179C1172.58 -183.347 1137.47 -189.711 1086.93 -177.785C1038.34 -166.318 985.766 -139.985 944.079 -105.576C901.56 -70.4804 876.413 -32.1653 871.313 0.87326C862.485 58.0762 876.082 115.529 907.577 171.526C976.556 170.609 1039.27 159.303 1089.41 130.557C1143.39 99.6108 1188.22 45.3525 1208.14 -53.742C1223.2 -128.652 1205.19 -157.679 1190.58 -169.179Z"
+            fill="url(#paint0_linear_15_108)"
+          />
+        </g>
+        <defs>
+          <linearGradient
+            id="paint0_linear_15_108"
+            x1="233.369"
+            y1="60.6275"
+            x2="1544.87"
+            y2="365.627"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0.0721154" />
+            <stop offset="1" stopColor="#64B386" />
+          </linearGradient>
+          <clipPath id="clip0_15_108">
+            <rect width="1440" height="597" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div className="text-6xl font-bold w-full z-10 text-white">
+        <span className="text-[#64B386]">HR Outsource</span>{" "}
+        ที่เหมาะกับธุรกิจของคุณ
+      </div>
+
+      <div className="flex flex-row h-11/12 w-11/12 z-10 justify-center items-center gap-10">
+        {packages.map((pkg, index) => (
+          <div
+            key={index}
+            className="group min-w-md min-h-1/2 border-5 border-gray-400 rounded-[40px] py-6 flex flex-col justify-center items-center gap-4 
+               bg-white/10 backdrop-blur-md cursor-pointer
+               hover:border-[#4CAF50] transition-all duration-300
+               hover:min-h-3/4 hover:scale-105 hover:gap-10"
+          >
+            <div className="text-[#64B386] text-4xl font-bold transition-colors duration-300 group-hover:text-[#95E999]">
+              {pkg.title}
+            </div>
+            <div className="font-bold text-3xl text-white/80 transition-opacity duration-300 group-hover:text-white">
+              {pkg.price}
+            </div>
+            <div className="text-3xl text-white/30 transition-opacity duration-300 group-hover:text-white/80">
+              {pkg.for}
+            </div>
+            <div className="justify-center items-center">
+              <div className="flex flex-col w-full">
+                {pkg.description.map((desc, idx) => (
+                  <div key={idx} className="flex flex-row items-center gap-2">
+                    <Image
+                      src={check}
+                      alt="check"
+                      width={39}
+                      height={39}
+                      draggable={false}
+                    />
+                    <span className="text-white/30 text-xl">{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
