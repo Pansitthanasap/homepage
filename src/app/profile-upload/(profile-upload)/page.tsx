@@ -13,6 +13,7 @@ const ProfileUploadPage = () => {
         src={profile_upload_bg}
         alt="Background"
         className="blur-sm w-full"
+        loading="eager"
       />
       <div className="absolute left-0 top-0 flex flex-col w-full h-full justify-center items-center gap-10">
         {/* Title Section */}
