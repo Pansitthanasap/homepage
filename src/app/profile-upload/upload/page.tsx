@@ -2,21 +2,41 @@
 
 import Image from "next/image";
 import exit_icon from "../../../../public/exit-icon.png";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { submitResume } from "./actions";
+import { type PutBlobResult } from '@vercel/blob';
+import { upload } from '@vercel/blob/client';
 
-const ResumeUploadPage = () => {
+export default function ResumeUploadPage() {
   const [openModal, setOpenModal] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [resumeUrl, setResumeUrl] = useState<string>('');
+  const formRef = useRef<HTMLButtonElement>(null);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // Instead of submitting immediately, open modal
+  const handleSubmit = () => {
     setOpenModal(true);
   };
 
   const handleAccept = () => {
-    setOpenModal(false);
-    alert("ส่งใบสมัครเรียบร้อย ✅");
+    if (file) {
+      upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload-resume',
+      })
+        .then((result: PutBlobResult) => {
+          (formRef.current?.form?.[7] as HTMLInputElement).value = file?.name ?? '';
+          (formRef.current?.form?.[8] as HTMLInputElement).value = result.url;
+          formRef.current?.click();
+          setOpenModal(false);
+          alert("ส่งใบสมัครเรียบร้อย ✅");
+        })
+        .catch((error: Error) => {
+          console.error('Upload failed:', error);
+          alert("การส่งใบสมัครล้มเหลว ❌ กรุณาลองใหม่อีกครั้ง");
+        });
+    }
   };
+
   const handleClose = () => {
     history.back();
   };
@@ -47,7 +67,7 @@ const ResumeUploadPage = () => {
 
       {/* Form */}
       <form
-        onSubmit={handleSubmit}
+        action={submitResume}
         className="grid justify-center items-center px-4 md:px-0"
       >
         <div className="pb-2.5 font-normal text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] text-[#D43737]">
@@ -66,6 +86,7 @@ const ResumeUploadPage = () => {
             <input
               type="email"
               id="email"
+              name="email"
               autoComplete="on"
               className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
               placeholder="Example@email.com"
@@ -86,6 +107,7 @@ const ResumeUploadPage = () => {
               pattern="[0-9]{10}"
               autoComplete="on"
               id="phone"
+              name="phone"
               className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
               placeholder="0801234567"
               required
@@ -129,6 +151,7 @@ const ResumeUploadPage = () => {
             <input
               type="text"
               id="position"
+              name="position"
               className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
               placeholder="ตำแหน่ง"
               required
@@ -146,8 +169,13 @@ const ResumeUploadPage = () => {
             <input
               type="file"
               id="resume"
+              name="resume"
               accept="application/pdf"
               required
+              onChange={(e) => {
+                const selectedFile = e.target.files ? e.target.files[0] : null;
+                setFile(selectedFile);
+              }}
               className="flex items-center border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] 
               w-full md:w-[509px] h-[50px] md:h-[60px] p-0 overflow-hidden
               file:h-full file:px-4 file:py-0 file:rounded-[10px] file:border-0 file:text-[16px] file:font-medium 
@@ -155,13 +183,25 @@ const ResumeUploadPage = () => {
             />
           </div>
 
+          <input type="hidden" name="resume_file_name" value={file?.name ?? ''} />
+          <input type="hidden" name="resume_url" value={resumeUrl} />
+
           {/* Submit Button */}
           <div className="flex justify-center md:justify-end w-full mt-6">
             <button
-              type="submit"
+              type="button"
               className="bg-[#171717] hover:bg-[#333333] text-white font-medium text-[18px] md:text-[20px] px-[30px] md:px-10 py-2.5 rounded-[10px] shadow-md transition-all duration-200"
+              onClick={handleSubmit}
             >
               ส่งใบสมัคร
+            </button>
+            <button
+              type="submit"
+              className="hidden"
+              id="hidden-submit"
+              ref={formRef}
+            >
+              Hidden Submit
             </button>
           </div>
         </div>
@@ -180,6 +220,7 @@ const ResumeUploadPage = () => {
             <div className="flex justify-between items-center border-b pb-3">
               <h3 className="text-xl font-semibold text-gray-900">นโยบาย</h3>
               <button
+                type="button"
                 onClick={() => setOpenModal(false)}
                 className="text-gray-400 hover:text-gray-700"
               >
@@ -195,12 +236,14 @@ const ResumeUploadPage = () => {
             </div>
             <div className="flex justify-end gap-3 mt-6 border-t pt-4">
               <button
+                type="button"
                 onClick={handleAccept}
                 className="bg-[#4CAF50] hover:bg-[#0A462D] text-white font-medium px-5 py-2 rounded-lg"
               >
                 I accept
               </button>
               <button
+                type="button"
                 onClick={() => setOpenModal(false)}
                 className="border border-gray-300 text-gray-700 hover:bg-gray-100 px-5 py-2 rounded-lg"
               >
@@ -213,5 +256,3 @@ const ResumeUploadPage = () => {
     </div>
   );
 };
-
-export default ResumeUploadPage;

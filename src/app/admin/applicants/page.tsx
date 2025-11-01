@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ApplicantInfo {
   firstName: string;
@@ -13,35 +13,7 @@ interface ApplicantInfo {
 }
 
 const ResumeUploadPage = () => {
-  const [informations, setInformations] = useState<ApplicantInfo[]>([
-    {
-      firstName: "Nathan",
-      lastName: "Boonkert",
-      email: "nathan@example.com",
-      phone: "0812345678",
-      jobTitle: "Engineer",
-      fileName: "resume.pdf",
-      fileUrl: "/resumes/nathan_boonkert_resume.pdf",
-    },
-    {
-      firstName: "Chopper",
-      lastName: "Pakorn",
-      email: "chopper@example.com",
-      phone: "0812345678",
-      jobTitle: "Housemaid",
-      fileName: "chopper_resume.pdf",
-      fileUrl: "/resumes/chopper_pakorn_resume.pdf",
-    },
-    {
-      firstName: "Yai",
-      lastName: "Mak",
-      email: "yai@example.com",
-      phone: "0812345678",
-      jobTitle: "Homeless",
-      fileName: "yai_resume.pdf",
-      fileUrl: "/resumes/yai_mak_resume.pdf",
-    },
-  ]);
+  const [informations, setInformations] = useState<ApplicantInfo[]>([]);
 
   const [sortConfig, setSortConfig] = useState<{
     key: keyof ApplicantInfo | null;
@@ -75,6 +47,12 @@ const ResumeUploadPage = () => {
 
   // Unique job titles for autocomplete
   const jobTitleOptions = [...new Set(informations.map((i) => i.jobTitle))];
+
+  useEffect(() => {
+    fetch("/api/applicants")
+      .then((res) => res.json())
+      .then((data) => setInformations(data));
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F5F2]">

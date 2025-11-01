@@ -1,10 +1,11 @@
 import Image from "next/image";
 import contact_us_bg from "../../../../public/contact-us-bg.png";
+import { submitContactForm } from "./actions";
 
 export default function ContactUs() {
   return (
     <div
-      className="relative flex flex-col h-[calc(100vh*4/3)] overflow-hidden"
+      className="relative flex flex-col h-[calc(120vh*4/3)] overflow-hidden"
       id="contact"
     >
       {/* 🔹 พื้นหลังเต็มพื้นที่ (h-screen * 4/3) */}
@@ -15,12 +16,12 @@ export default function ContactUs() {
           className="w-full h-full object-cover"
           draggable={false}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#2D2D2D] via-[#324233]/50 to-[#4CAF50]/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#2D2D2D] via-[#324233]/50 to-[#4CAF50]/60" />
       </div>
 
       {/* 🔹 กล่องฟอร์ม */}
-      <form className="relative flex justify-center items-center h-full">
-        <div className="bg-white w-auto rounded-[40px] shadow-lg p-8 md:p-12 flex flex-col gap-6">
+      <form className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-5/6 h-full" action={submitContactForm}>
+        <div className="bg-white w-full rounded-[40px] shadow-lg p-8 md:p-12 flex flex-col gap-6">
           <div className="text-[28px] md:text-[40px] font-bold text-center text-black">
             ติดต่อเรา
           </div>
@@ -34,29 +35,33 @@ export default function ContactUs() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="text"
+                name="first_name"
                 placeholder="ชื่อ"
                 required
-                className="border border-gray-300 rounded-2xl px-4 w-[457px] h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-black border border-gray-300 rounded-2xl px-4 w-full h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
               />
               <input
                 type="text"
+                name="last_name"
                 placeholder="นามสกุล"
                 required
-                className="border border-gray-300 rounded-2xl px-4 w-[457px] h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-black border border-gray-300 rounded-2xl px-4 w-full h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
               />
               <input
                 type="tel"
+                name="phone"
                 pattern="[0-9]{10}"
                 autoComplete="on"
                 placeholder="หมายเลขโทรศัพท์มือถือ"
                 required
-                className="border border-gray-300 rounded-2xl px-4 w-[457px] h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-black border border-gray-300 rounded-2xl px-4 w-full h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
               />
               <input
                 type="email"
+                name="email"
                 placeholder="อีเมล"
                 required
-                className="border border-gray-300 rounded-2xl px-4 w-[457px] h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-black border border-gray-300 rounded-2xl px-4 w-full h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
               />
             </div>
           </div>
@@ -69,9 +74,10 @@ export default function ContactUs() {
 
             <input
               list="contact-topics"
+              name="topic"
               placeholder="เลือกหรือพิมพ์หัวข้อ"
               required
-              className="border border-gray-300 rounded-2xl px-4 py-2 h-[70px] w-full focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="text-black border border-gray-300 rounded-2xl px-4 py-2 h-[70px] w-full focus:outline-none focus:ring-2 focus:ring-green-400"
             />
 
             <datalist id="contact-topics">
@@ -83,15 +89,16 @@ export default function ContactUs() {
 
             <textarea
               rows={4}
+              name="description"
               placeholder="คำอธิบาย"
               required
-              className="border border-gray-300 rounded-2xl px-4 py-2 w-full resize-none focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="text-black border border-gray-300 rounded-2xl px-4 py-2 w-full resize-none focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* ปุ่มส่ง */}
           <div className="flex justify-center mt-4">
-            <button className="bg-green-500 text-white font-semibold text-[32px] px-8 py-2 rounded-3xl hover:bg-green-600 transition">
+            <button type="submit" className="bg-green-500 text-white font-semibold text-[32px] px-8 py-2 rounded-3xl hover:bg-green-600 transition cursor-pointer">
               ส่งข้อความ
             </button>
           </div>

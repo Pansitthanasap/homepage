@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ContactInfo {
   firstName: string;
@@ -12,33 +12,7 @@ interface ContactInfo {
 }
 
 const ResumeUploadPage = () => {
-  const [informations, setInformations] = useState<ContactInfo[]>([
-    {
-      firstName: "Nathan",
-      lastName: "Boonkert",
-      email: "nathan@example.com",
-      phone: "0812345678",
-      title: "YaiYai",
-      description:
-        "Homelesssfalgnhlsodah;v/zv;aje;glixvliahsdihf'/J;ojdafp'd;ishf;asbv/savh;ilsdagviyhaslcjaslgfkygsajhkckashyasdhvkasjc",
-    },
-    {
-      firstName: "Chopper",
-      lastName: "Pakorn",
-      email: "chopper@example.com",
-      phone: "0812345678",
-      title: "Dev",
-      description: "Front-End Developer",
-    },
-    {
-      firstName: "Yai",
-      lastName: "Mak",
-      email: "yai@example.com",
-      phone: "0812345678",
-      title: "Designer",
-      description: "Graphic Designer",
-    },
-  ]);
+  const [informations, setInformations] = useState<ContactInfo[]>([]);
 
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
@@ -80,6 +54,12 @@ const ResumeUploadPage = () => {
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
+
+  useEffect(() => {
+    fetch("/api/contacts")
+      .then((res) => res.json())
+      .then((data) => setInformations(data));
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F5F2]">
