@@ -19,10 +19,10 @@ const ResumeUploadPage = () => {
     key: keyof ApplicantInfo | null;
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
-  const [searchField, setSearchField] = useState<keyof ApplicantInfo>("jobTitle"); // default jobTitle
+  const [searchField, setSearchField] =
+    useState<keyof ApplicantInfo>("jobTitle");
   const [searchValue, setSearchValue] = useState<string>("");
 
-  // Sorting function
   const sortBy = (key: keyof ApplicantInfo) => {
     let direction: "asc" | "desc" = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc")
@@ -38,14 +38,12 @@ const ResumeUploadPage = () => {
     setInformations(sortedData);
   };
 
-  // Filtered data: only one field at a time
   const filteredData = searchValue
     ? informations.filter((info) =>
         info[searchField].toLowerCase().includes(searchValue.toLowerCase())
       )
     : informations;
 
-  // Unique job titles for autocomplete
   const jobTitleOptions = [...new Set(informations.map((i) => i.jobTitle))];
 
   useEffect(() => {
@@ -55,7 +53,7 @@ const ResumeUploadPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F5F2]">
+    <div className="flex flex-col min-h-screen bg-[#F7F5F2] text-black">
       {/* Header */}
       <div className="flex h-[50px]"></div>
 
@@ -65,14 +63,14 @@ const ResumeUploadPage = () => {
       </div>
 
       {/* Search */}
-      <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-6 px-4">
+      <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-6 px-4 text-black">
         <select
           title="Search Field"
-          className="border rounded px-4 py-2 w-full md:w-48"
+          className="border rounded px-4 py-2 w-full md:w-48 text-black"
           value={searchField}
           onChange={(e) => {
             setSearchField(e.target.value as keyof ApplicantInfo);
-            setSearchValue(""); // clear input when changing field
+            setSearchValue("");
           }}
         >
           <option value="jobTitle">Job Title</option>
@@ -85,7 +83,7 @@ const ResumeUploadPage = () => {
             type="text"
             list="jobTitles"
             placeholder="Search Job Title"
-            className="border rounded px-4 py-2 w-full md:w-64"
+            className="border rounded px-4 py-2 w-full md:w-64 text-black placeholder-gray-500"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -95,7 +93,7 @@ const ResumeUploadPage = () => {
             placeholder={`Search ${
               searchField === "firstName" ? "First Name" : "Last Name"
             }`}
-            className="border rounded px-4 py-2 w-full md:w-64"
+            className="border rounded px-4 py-2 w-full md:w-64 text-black placeholder-gray-500"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -111,10 +109,10 @@ const ResumeUploadPage = () => {
       </div>
 
       {/* Table */}
-      <div className="flex flex-col min-h-screen px-4 mt-6">
+      <div className="flex flex-col min-h-screen px-4 mt-6 text-black">
         <div className="overflow-x-auto shadow-[0px_4px_20px_0px_#00000040] rounded-lg bg-white">
-          <table className="min-w-full border-none bg-white rounded-[10px]">
-            <thead className="bg-gray-100">
+          <table className="min-w-full border-none bg-white rounded-[10px] text-black">
+            <thead className="bg-gray-100 text-black">
               <tr>
                 {[
                   "firstName",
@@ -126,7 +124,7 @@ const ResumeUploadPage = () => {
                 ].map((col) => (
                   <th
                     key={col}
-                    className="py-3 px-6 text-left cursor-pointer"
+                    className="py-3 px-6 text-left cursor-pointer text-black"
                     onClick={() =>
                       ["firstName", "lastName", "jobTitle"].includes(col) &&
                       sortBy(col as keyof ApplicantInfo)
@@ -152,11 +150,13 @@ const ResumeUploadPage = () => {
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-black">
               {filteredData.map((info, index) => (
                 <tr
                   key={index}
-                  className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                  className={`${
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } text-black`}
                 >
                   <td className="py-3 px-6">{info.firstName}</td>
                   <td className="py-3 px-6">{info.lastName}</td>
@@ -164,7 +164,19 @@ const ResumeUploadPage = () => {
                   <td className="py-3 px-6">{info.email}</td>
                   <td className="py-3 px-6">{info.phone}</td>
                   <td className="py-3 px-6">
-                    {info.fileName}
+                    {info.fileUrl ? (
+                      <a
+                        href={info.fileUrl}
+                        download={info.fileName}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        {info.fileName}
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">No file</span>
+                    )}
                   </td>
                 </tr>
               ))}

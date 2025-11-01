@@ -62,7 +62,7 @@ const ResumeUploadPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F5F2]">
+    <div className="flex flex-col min-h-screen bg-[#F7F5F2] text-black">
       {/* Header */}
       <div className="flex h-[50px]" />
 
@@ -75,7 +75,7 @@ const ResumeUploadPage = () => {
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-6 px-4">
         <select
           title="Search Field"
-          className="border rounded px-4 py-2 w-full md:w-48"
+          className="border rounded px-4 py-2 w-full md:w-48 text-black"
           value={searchField}
           onChange={(e) => {
             setSearchField(e.target.value as keyof ContactInfo);
@@ -96,7 +96,7 @@ const ResumeUploadPage = () => {
               ? "Last Name"
               : "Title"
           }`}
-          className="border rounded px-4 py-2 w-full md:w-64"
+          className="border rounded px-4 py-2 w-full md:w-64 text-black placeholder-gray-400"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
@@ -105,8 +105,8 @@ const ResumeUploadPage = () => {
       {/* Table */}
       <div className="flex flex-col px-4 mt-6 mb-10">
         <div className="overflow-x-auto shadow-[0px_4px_20px_0px_#00000040] rounded-lg bg-white">
-          <table className="min-w-full border-none bg-white rounded-[10px]">
-            <thead className="bg-gray-100">
+          <table className="min-w-full border-none bg-white rounded-[10px] text-black">
+            <thead className="bg-gray-100 text-black">
               <tr>
                 {["firstName", "lastName", "title"].map((col) => (
                   <th
@@ -135,7 +135,7 @@ const ResumeUploadPage = () => {
                   key={index}
                   className={`${
                     index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  }  transition-all`}
+                  } transition-all text-black`}
                 >
                   <td className="py-3 px-6 align-top">
                     <div className="flex flex-col">
@@ -158,16 +158,16 @@ const ResumeUploadPage = () => {
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <div className="max-w-80 overflow-y-auto whitespace-normal wrap-break-word pr-2">
-                          <p className="text-sm text-gray-600 mt-1">
+                        <div className="max-w-80 overflow-y-auto whitespace-normal break-words pr-2">
+                          <p className="text-sm text-black mt-1">
                             <span className="font-semibold">Description:</span>{" "}
                             {info.description}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-black">
                             <span className="font-semibold">Email:</span>{" "}
                             {info.email}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-black">
                             <span className="font-semibold">Phone:</span>{" "}
                             {info.phone}
                           </p>
@@ -178,7 +178,7 @@ const ResumeUploadPage = () => {
                   <td className="py-3 px-6 align-top">
                     <button
                       onClick={() => toggleRow(index)}
-                      className="w-18 text-blue-500 underline hover:text-blue-700 transition"
+                      className="w-18 text-black underline hover:opacity-70 transition"
                     >
                       {expandedRows.includes(index) ? "ซ่อน" : "ดูเพิ่มเติม"}
                     </button>
