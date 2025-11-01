@@ -10,7 +10,6 @@ import { upload } from '@vercel/blob/client';
 export default function ResumeUploadPage() {
   const [openModal, setOpenModal] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [resumeUrl, setResumeUrl] = useState<string>('');
   const formRef = useRef<HTMLButtonElement>(null);
 
   const handleSubmit = () => {
@@ -24,8 +23,8 @@ export default function ResumeUploadPage() {
         handleUploadUrl: '/api/upload-resume',
       })
         .then((result: PutBlobResult) => {
-          (formRef.current?.form?.[7] as HTMLInputElement).value = file?.name ?? '';
-          (formRef.current?.form?.[8] as HTMLInputElement).value = result.url;
+          (formRef.current?.form?.[6] as HTMLInputElement).value = file?.name ?? '';
+          (formRef.current?.form?.[7] as HTMLInputElement).value = result.url;
           formRef.current?.click();
           setOpenModal(false);
           alert("ส่งใบสมัครเรียบร้อย ✅");
@@ -183,8 +182,8 @@ export default function ResumeUploadPage() {
             />
           </div>
 
-          <input type="hidden" name="resume_file_name" value={file?.name ?? ''} />
-          <input type="hidden" name="resume_url" value={resumeUrl} />
+          <input type="hidden" name="resume_file_name" value={''} />
+          <input type="hidden" name="resume_url" value={''} />
 
           {/* Submit Button */}
           <div className="flex justify-center md:justify-end w-full mt-6">
