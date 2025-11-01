@@ -29,7 +29,12 @@ export default function Home() {
             เราสร้างทีมให้คุณ เพื่อสร้างธุรกิจให้โต
           </div>
         </div>
-        <Link href="/profile-upload" className="absolute h-12 w-36 right-5 top-8 rounded-full bg-[#485C11] flex justify-center items-center">ร่วมงานกับเรา↗</Link>
+        <Link
+          href="/profile-upload"
+          className="absolute h-12 w-36 right-5 top-8 rounded-full bg-[#485C11] text-white flex justify-center items-center"
+        >
+          ร่วมงานกับเรา↗
+        </Link>
       </div>
       {/* Problems */}
       <Problems />

@@ -164,19 +164,14 @@ const ResumeUploadPage = () => {
                   <td className="py-3 px-6">{info.email}</td>
                   <td className="py-3 px-6">{info.phone}</td>
                   <td className="py-3 px-6">
-                    {info.fileUrl ? (
-                      <a
-                        href={info.fileUrl}
-                        download={info.fileName}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        {info.fileName}
-                      </a>
-                    ) : (
-                      <span className="text-gray-400">No file</span>
-                    )}
+                    <a
+                      href={info.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      {info.fileName}
+                    </a>
                   </td>
                 </tr>
               ))}
