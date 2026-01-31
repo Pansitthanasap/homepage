@@ -11,6 +11,7 @@ import Testimonials from "./sections/Testimonials";
 import AboutUs from "./sections/AboutUs";
 import ContactUs from "./sections/ContactUs";
 import Footer from "./components/Footer";
+import Articles from "./sections/Articles";
 
 export default function Home() {
   return (
@@ -38,6 +39,7 @@ export default function Home() {
         <Insights />
         <Testimonials />
         <AboutUs />
+        <Articles />
         <ContactUs />
       </main>
       <footer>
