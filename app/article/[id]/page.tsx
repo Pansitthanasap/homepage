@@ -1,23 +1,24 @@
 "use client";
 
-import { useState } from "react"
 import Image from "next/image";
 
 export interface Article {
-  image?: string;
   title: string;
-  description: string | null;
-  createdAt?: string;
-  updatedAt?: string;
+  image: string | null;
+  description: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export default function ArticleById({
   params,
 }: {
-  params: { id: string }
+  params: { id: string };
 }) {
-    const [article] = useState<Article>({
+  const article: Article = {
     title: "HR Setup 101",
+    image: null,
     description: `
     <p>สอนเจ้าของ <strong>SME</strong> วางระบบ HR ตั้งแต่เริ่ม</p>
     <ul>
@@ -26,9 +27,17 @@ export default function ArticleById({
       <li>ระบบเงินเดือน</li>
     </ul>
   `,
-    createdAt: "5 ต.ค. 2025",
-    updatedAt: "5 ต.ค. 2025",
-  });
+    content: `
+    <h2>โครงสร้างองค์กร</h2>
+    <p>การวางโครงสร้างองค์กรเป็นสิ่งสำคัญสำหรับการเติบโตของธุรกิจ...</p>
+    <h2>JD & KPI</h2>
+    <p>การกำหนดหน้าที่ความรับผิดชอบ (JD) และตัวชี้วัดผลการปฏิบัติงาน (KPI)...</p>
+    <h2>ระบบเงินเดือน</h2>
+    <p>การวางระบบเงินเดือนที่เหมาะสมช่วยให้ธุรกิจสามารถดึงดูดและรักษาพนักงานที่มีคุณภาพ...</p>
+    `,
+    createdAt: new Date("2025-10-25"),
+    updatedAt: new Date("2025-10-05"),
+  };
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
@@ -69,7 +78,7 @@ export default function ArticleById({
               priority
             />
           ) : (
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-100"><path d="M7.828 5l-1-1H22v15.172l-1-1v-.69l-3.116-3.117-.395.296-.714-.714.854-.64a.503.503 0 0 1 .657.046L21 16.067V5zM3 20v-.519l2.947-2.947a1.506 1.506 0 0 0 .677.163 1.403 1.403 0 0 0 .997-.415l2.916-2.916-.706-.707-2.916 2.916a.474.474 0 0 1-.678-.048.503.503 0 0 0-.704.007L3 18.067V5.828l-1-1V21h16.172l-1-1zM17 8.5A1.5 1.5 0 1 1 15.5 7 1.5 1.5 0 0 1 17 8.5zm-1 0a.5.5 0 1 0-.5.5.5.5 0 0 0 .5-.5zm5.646 13.854l.707-.707-20-20-.707.707z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-100"><path d="M7.828 5l-1-1H22v15.172l-1-1v-.69l-3.116-3.117-.395.296-.714-.714.854-.64a.503.503 0 0 1 .657.046L21 16.067V5zM3 20v-.519l2.947-2.947a1.506 1.506 0 0 0 .677.163 1.403 1.403 0 0 0 .997-.415l2.916-2.916-.706-.707-2.916 2.916a.474.474 0 0 1-.678-.048.503.503 0 0 0-.704.007L3 18.067V5.828l-1-1V21h16.172l-1-1zM17 8.5A1.5 1.5 0 1 1 15.5 7 1.5 1.5 0 0 1 17 8.5zm-1 0a.5.5 0 1 0-.5.5.5.5 0 0 0 .5-.5zm5.646 13.854l.707-.707-20-20-.707.707z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
           )}
         </div>
 
@@ -119,6 +128,7 @@ export default function ArticleById({
             <div className="text-2xl text-black">แชร์ไปยัง</div>
             {/* LINE */}
             <button
+              type="button"
               onClick={() => shareTo("line")}
               className="cursor-pointer"
               aria-label="Share to LINE"
