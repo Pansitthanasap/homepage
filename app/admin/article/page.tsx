@@ -8,8 +8,9 @@ import {
   getArticles,
   type CreateArticleData,
 } from "@/app/actions/article";
-import Quill from 'quill';
+import Quill from "quill";
 import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
 
 interface Article {
   id: number;
@@ -50,21 +51,29 @@ export default function ArticleAdminPage() {
     loadArticles();
   }, []);
 
+  const quillEditorRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!quill) {
-      setQuill(new Quill("#quill-editor", {
-        theme: "snow",
-      }
-      ))
-    };
+    if (!quillEditorRef.current || quill) return;
+    const editor = new Quill(quillEditorRef.current, {
+      theme: "snow",
+    });
+    setQuill(editor);
   }, [quill]);
+
+  useEffect(() => {
+    if (editingId != null && quill && formData.content) {
+      quill.clipboard.dangerouslyPasteHTML(formData.content);
+    }
+  }, [editingId, quill, formData.content]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
+    const content = quill?.root?.innerHTML ?? formData.content;
+    const payload = { ...formData, content };
 
     if (editingId) {
-      const result = await updateArticle({ ...formData, id: editingId });
+      const result = await updateArticle({ ...payload, id: editingId });
       if (result.success) {
         setMessage({ type: "success", text: "Article updated successfully!" });
         resetForm();
@@ -73,7 +82,7 @@ export default function ArticleAdminPage() {
         setMessage({ type: "error", text: result.error || "Failed to update" });
       }
     } else {
-      const result = await createArticle(formData);
+      const result = await createArticle(payload);
       if (result.success) {
         setMessage({ type: "success", text: "Article created successfully!" });
         resetForm();
@@ -112,11 +121,11 @@ export default function ArticleAdminPage() {
       title: "",
       description: "",
       content: "",
-      image: "",
+      image: undefined,
     });
     setEditingId(null);
-    if (quillRef.current) {
-      quillRef.current.getEditor().setText("");
+    if (quill) {
+      quill.clipboard.dangerouslyPasteHTML("");
     }
   };
 
@@ -167,9 +176,9 @@ export default function ArticleAdminPage() {
               </label>
               <input
                 type="text"
-                value={formData.image}
+                value={formData.image ?? ""}
                 onChange={(e) =>
-                  setFormData({ ...formData, image: e.target.value })
+                  setFormData({ ...formData, image: e.target.value || undefined })
                 }
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -195,9 +204,7 @@ export default function ArticleAdminPage() {
                 Content
               </label>
               <div className="bg-white">
-                <div
-                  id="quill-editor"
-                ></div>
+                <div ref={quillEditorRef} />
               </div>
             </div>
 

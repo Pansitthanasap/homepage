@@ -25,8 +25,8 @@ export default function ArticleById({
   useEffect(() => {
     const loadArticle = async () => {
       try {
-        const data = await getArticleById(parseInt(params.id));
-        if (data) {
+        const data = await getArticleById(parseInt(id, 10));
+        if (data?.success && data.article) {
           setArticle(data.article);
         }
       } catch (error) {
@@ -36,7 +36,7 @@ export default function ArticleById({
       }
     };
     loadArticle();
-  }, [params.id]);
+  }, [id]);
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
@@ -136,7 +136,9 @@ export default function ArticleById({
                 />
               </defs>
             </svg>
-            <div className="text-2xl text-black">{article.updatedAt.toLocaleDateString()}</div>
+            <div className="text-2xl text-black">
+              {new Date(article.updatedAt).toLocaleDateString()}
+            </div>
           </div>
           {/* share to ... */}
           <div className="flex gap-3 items-center">
