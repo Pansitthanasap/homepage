@@ -8,6 +8,8 @@ import {
   getArticles,
   type CreateArticleData,
 } from "@/app/actions/article";
+import { upload } from "@vercel/blob/client";
+import type { PutBlobResult } from "@vercel/blob";
 import Quill from "quill";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -17,10 +19,12 @@ interface Article {
   title: string;
   description: string;
   content: string;
-  image?: string;
+  image?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
+
+const IMAGE_ACCEPT = "image/jpeg,image/png,image/webp,image/gif";
 
 export default function ArticleAdminPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -31,12 +35,16 @@ export default function ArticleAdminPage() {
     content: "",
     image: undefined,
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
   } | null>(null);
   const [quill, setQuill] = useState<Quill | null>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const loadArticles = async () => {
     setLoading(true);
@@ -70,7 +78,29 @@ export default function ArticleAdminPage() {
     e.preventDefault();
     setMessage(null);
     const content = quill?.root?.innerHTML ?? formData.content;
-    const payload = { ...formData, content };
+    let imageUrl = formData.image ?? undefined;
+
+    if (imageFile) {
+      setUploadingImage(true);
+      try {
+        const result = (await upload(imageFile.name, imageFile, {
+          access: "public",
+          handleUploadUrl: "/api/upload-article-image",
+        })) as PutBlobResult;
+        imageUrl = result.url;
+      } catch (err) {
+        console.error("Image upload failed:", err);
+        setMessage({
+          type: "error",
+          text: "Failed to upload image. Try again.",
+        });
+        setUploadingImage(false);
+        return;
+      }
+      setUploadingImage(false);
+    }
+
+    const payload = { ...formData, content, image: imageUrl };
 
     if (editingId) {
       const result = await updateArticle({ ...payload, id: editingId });
@@ -93,14 +123,25 @@ export default function ArticleAdminPage() {
     }
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
+    setImageFile(file);
+    setImagePreviewUrl(file ? URL.createObjectURL(file) : null);
+  };
+
   const handleEdit = (article: Article) => {
     setFormData({
       title: article.title,
       description: article.description,
       content: article.content,
-      image: article.image || null,
+      image: article.image ?? undefined,
     });
+    setImageFile(null);
+    if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
+    setImagePreviewUrl(article.image ?? null);
     setEditingId(article.id);
+    if (imageInputRef.current) imageInputRef.current.value = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -123,123 +164,154 @@ export default function ArticleAdminPage() {
       content: "",
       image: undefined,
     });
+    setImageFile(null);
+    if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
+    setImagePreviewUrl(null);
     setEditingId(null);
+    if (imageInputRef.current) imageInputRef.current.value = "";
     if (quill) {
       quill.clipboard.dangerouslyPasteHTML("");
     }
   };
 
+  const displayImageUrl = imagePreviewUrl ?? formData.image ?? null;
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">
-          Article Management
+    <div className="flex flex-col min-h-screen bg-white">
+      {/* Header – article read page style */}
+      <div className="flex flex-col gap-10 pt-8 px-6 md:px-15 pb-10">
+        <div className="font-bold text-4xl text-[#00000099]">HR Insight</div>
+        <h1 className="font-bold text-4xl md:text-5xl text-[#95E999]">
+          {editingId ? "Edit Article" : "Create Article"}
         </h1>
 
         {message && (
           <div
-            className={`mb-6 p-4 rounded-lg ${
+            className={`p-4 rounded-[10px] text-[18px] ${
               message.type === "success"
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
+                ? "bg-[#95E999]/20 text-green-800 border border-[#95E999]"
+                : "bg-red-100 text-red-800 border border-red-300"
             }`}
           >
             {message.text}
           </div>
         )}
 
-        {/* Article Form */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            {editingId ? "Edit Article" : "Create New Article"}
-          </h2>
+        {/* Form card – same position as article read: image left, title/description right */}
+        <div className="p-6 md:p-10 w-full max-w-[1114px] border-[3px] border-[#95E999] rounded-[40px] bg-white shadow-[0px_4px_20px_0px_#00000020]">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+            {/* Hero row: image left, title + description right (like article read page) */}
+            <div className="flex flex-col md:flex-row gap-8 md:gap-10 w-full md:pt-8 md:px-10">
+              {/* Left: image preview (same position as article read hero image) */}
+              <div className="flex flex-col gap-4 w-full md:w-auto shrink-0">
+                <div className="flex relative w-full md:w-[380px] h-[280px] md:h-[320px] border-[3px] border-[#95E999] rounded-[40px] overflow-hidden bg-gray-100 items-center justify-center">
+                  {displayImageUrl ? (
+                    <img
+                      src={displayImageUrl}
+                      alt="Preview"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-gray-500 text-center text-lg px-4">
+                      เลือกไฟล์รูป (JPG, PNG, WebP, GIF)
+                    </span>
+                  )}
+                </div>
+                <input
+                  ref={imageInputRef}
+                  type="file"
+                  accept={IMAGE_ACCEPT}
+                  onChange={handleImageChange}
+                  className="flex items-center border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full h-[50px] md:h-[60px] p-0 overflow-hidden file:h-full file:px-4 file:py-0 file:rounded-l-[10px] file:border-0 file:text-[16px] file:font-medium file:bg-[#E5E7EB] file:text-black hover:file:bg-[#D1D5DB] cursor-pointer"
+                />
+              </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Title
-              </label>
-              <input
-                type="text"
-                value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Image URL (optional)
-              </label>
-              <input
-                type="text"
-                value={formData.image ?? ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, image: e.target.value || undefined })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Description
-              </label>
-              <textarea
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-                rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Content
-              </label>
-              <div className="bg-white">
-                <div ref={quillEditorRef} />
+              {/* Right: HR Insight, Title, Description (same order as article read) */}
+              <div className="flex flex-col gap-6 flex-1 min-w-0">
+                <div className="font-bold text-4xl text-[#00000099]">
+                  HR Insight
+                </div>
+                <div>
+                  <label className="block font-light text-black text-[18px] md:text-[20px] mb-2">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.title}
+                    onChange={(e) =>
+                      setFormData({ ...formData, title: e.target.value })
+                    }
+                    className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full h-[50px] md:h-[60px] px-2.5"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block font-light text-black text-[18px] md:text-[20px] mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                    rows={4}
+                    className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full p-2.5 resize-y min-h-[120px]"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="flex gap-4 mt-20">
-              <button
-                type="submit"
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            {/* Content (Quill) – full width, resizable */}
+            <div className="w-full">
+              <label className="block font-light text-black text-[24px] md:text-[32px] leading-[85%] tracking-[-2.5%] mb-4">
+                Content
+              </label>
+              <div
+                className="w-full min-h-[240px] border border-black rounded-[10px] overflow-hidden bg-white resize-y"
+                style={{ minHeight: "240px" }}
               >
-                {editingId ? "Update Article" : "Create Article"}
-              </button>
+                <div ref={quillEditorRef} className="h-full min-h-[200px]" />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-4 pt-4">
               {editingId && (
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
+                  className="px-6 py-2.5 border-2 border-black text-black font-medium text-[18px] rounded-[10px] hover:bg-gray-100 transition-colors"
                 >
                   Cancel Edit
                 </button>
               )}
+              <button
+                type="submit"
+                disabled={uploadingImage}
+                className="px-8 py-2.5 bg-[#95E999] hover:bg-[#7ad97d] text-black font-medium text-[18px] rounded-[10px] shadow-md transition-colors disabled:opacity-60"
+              >
+                {uploadingImage
+                  ? "Uploading image..."
+                  : editingId
+                    ? "Update Article"
+                    : "Create Article"}
+              </button>
             </div>
           </form>
         </div>
 
         {/* Articles List */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+        <div className="mt-10 border-[3px] border-[#95E999] rounded-[40px] p-6 md:p-10 max-w-[1114px] w-full bg-white shadow-[0px_4px_20px_0px_#00000020]">
+          <h2 className="font-bold text-2xl md:text-3xl text-[#95E999] mb-6">
             Published Articles ({articles.length})
           </h2>
 
           {loading ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-500 text-[18px]">
               Loading articles...
             </div>
           ) : articles.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-500 text-[18px]">
               No articles yet. Create your first article above!
             </div>
           ) : (
@@ -247,10 +319,10 @@ export default function ArticleAdminPage() {
               {articles.map((article) => (
                 <div
                   key={article.id}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  className="border border-[#95E999] rounded-[20px] p-4 hover:shadow-md transition-shadow"
                 >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1 min-w-0">
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
                         {article.title}
                       </h3>
@@ -268,16 +340,18 @@ export default function ArticleAdminPage() {
                         )}
                       </div>
                     </div>
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex gap-2 shrink-0">
                       <button
+                        type="button"
                         onClick={() => handleEdit(article)}
-                        className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition-colors"
+                        className="px-4 py-2 bg-[#95E999] text-black rounded-[10px] hover:bg-[#7ad97d] transition-colors font-medium"
                       >
                         Edit
                       </button>
                       <button
+                        type="button"
                         onClick={() => handleDelete(article.id)}
-                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                        className="px-4 py-2 bg-red-500 text-white rounded-[10px] hover:bg-red-600 transition-colors font-medium"
                       >
                         Delete
                       </button>
