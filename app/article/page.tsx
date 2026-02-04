@@ -1,37 +1,36 @@
 "use client";
 
-import { useState } from "react";
-import { Article as IArticle } from "../sections/Articles";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getArticles } from "@/app/actions/article";
+
+interface Article {
+  id: number;
+  title: string;
+  description: string;
+  image: string | null;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default function Article() {
-  const [articles] = useState<IArticle[]>([
-    {
-      id: 1,
-      title: "HR Setup 101",
-      description: "สอนเจ้าของ SME วางระบบ HR ตั้งแต่เริ่ม",
-    },
-    {
-      id: 2,
-      title: "Recruitment & Retention",
-      description: "วิธีหาคนเก่ง และลดอัตราลาออก",
-    },
-    {
-      id: 3,
-      title: "Performance & KPI",
-      description: "การประเมินผลที่เหมาะกับธุรกิจเล็ก",
-    },
-    {
-      id: 4,
-      title: "Payroll & Compliance",
-      description: "ทำเงินเดือนให้ถูกต้องตามกฎหมายแรงงาน",
-    },
-    {
-      id: 5,
-      title: "Payroll & Compliance",
-      description: "ทำเงินเดือนให้ถูกต้องตามกฎหมายแรงงาน",
-    },
-  ]);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadArticles = async () => {
+    setLoading(true);
+    const result = await getArticles();
+    if (result.success) {
+      setArticles(result.articles);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadArticles();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <svg
