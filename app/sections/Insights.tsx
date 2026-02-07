@@ -105,7 +105,7 @@ export default function Insights() {
 
   return (
     <div
-      className="flex flex-col h-full lg:h-screen px-10 py-10 lg:py-16 justify-center items-center gap-4 bg-[#2D2D2D]"
+      className="flex flex-col h-full lg:h-screen px-10 py-5 lg:py-16 justify-center items-center gap-4 bg-[#2D2D2D]"
       id="insights"
     >
       <div className="text-4xl lg:text-6xl font-bold w-full text-white">

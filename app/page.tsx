@@ -39,7 +39,7 @@ export default function Home() {
         <Insights />
         {/* <Testimonials /> */}
         <AboutUs />
-        {/* <Articles /> */}
+        <Articles />
         <ContactUs />
       </main>
       <footer>

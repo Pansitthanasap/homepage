@@ -32,7 +32,7 @@ export default function Article() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       <svg
         viewBox="0 0 1440 628"
         fill="none"
@@ -122,19 +122,24 @@ export default function Article() {
           />
         </defs>
       </svg>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-10 pb-60 px-11">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 pt-10 pb-60 px-11">
         {articles.map((article, index) => (
           <Link
             key={index}
-            className="bg-[#95E999] rounded-3xl p-6 flex flex-col items-center text-black hover:scale-105 transition-transform cursor-pointer"
+            className="bg-[#95E999] rounded-3xl p-4 md:p-6 flex flex-col items-center text-black hover:scale-105 transition-transform cursor-pointer"
             href={`/article/${article.id}`}
           >
-            <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-4">
+            <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-3 md:mb-4">
               {/* Placeholder for image */}
             </div>
+
             <div className="w-full">
-              <div className="text-2xl font-bold">{article.title}</div>
-              <p className="text-gray-700 mt-1">{article.description}</p>
+              <div className="text-lg md:text-2xl font-bold overflow-hidden">
+                {article.title}
+              </div>
+              <p className="text-gray-700 mt-1 overflow-hidden text-sm md:text-base">
+                {article.description}
+              </p>
             </div>
           </Link>
         ))}

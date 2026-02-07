@@ -4,8 +4,8 @@ import Image from "next/image";
 import exitIcon from "@/public/exit.png";
 import { useState, useRef } from "react";
 import { submitResume } from "@/app/actions/upload-resume";
-import { type PutBlobResult } from '@vercel/blob';
-import { upload } from '@vercel/blob/client';
+import { type PutBlobResult } from "@vercel/blob";
+import { upload } from "@vercel/blob/client";
 import { useRouter } from "next/navigation";
 
 export default function ResumeUploadPage() {
@@ -19,19 +19,21 @@ export default function ResumeUploadPage() {
     if (file) {
       setUploading(true);
       upload(file.name, file, {
-        access: 'public',
-        handleUploadUrl: '/api/upload-resume',
+        access: "public",
+        handleUploadUrl: "/api/upload-resume",
       })
         .then((result: PutBlobResult) => {
-          (submitButtonRef.current?.form?.[6] as HTMLInputElement).value = file?.name ?? '';
-          (submitButtonRef.current?.form?.[7] as HTMLInputElement).value = result.url;
+          (submitButtonRef.current?.form?.[6] as HTMLInputElement).value =
+            file?.name ?? "";
+          (submitButtonRef.current?.form?.[7] as HTMLInputElement).value =
+            result.url;
           submitButtonRef.current?.click();
           setUploading(false);
           alert("ส่งใบสมัครเรียบร้อย ✅");
-          router.push('/');
+          router.push("/");
         })
         .catch((error: Error) => {
-          console.error('Upload failed:', error);
+          console.error("Upload failed:", error);
           alert("การส่งใบสมัครล้มเหลว ❌ กรุณาลองใหม่อีกครั้ง");
         });
     }
@@ -48,12 +50,12 @@ export default function ResumeUploadPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F5F2]">
       {/* Header */}
-      <div className="flex items-center py-5 md:py-[30px] h-20 md:h-[90px] shadow-[0px_4px_20px_0px_#00000040]">
-        <div className="px-5 md:px-[38px]">
+      <div className="flex items-center py-5 md:py-7.5 h-20 md:h-22.5 shadow-[0px_4px_20px_0px_#00000040]">
+        <div className="px-5 md:px-9.5">
           <Image
             src={exitIcon}
             alt="Exit Icon"
-            className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] cursor-pointer"
+            className="w-6.25 h-6.25 md:w-7.5 md:h-7.5 cursor-pointer"
             draggable={false}
             onClick={handleClose}
           />
@@ -64,7 +66,7 @@ export default function ResumeUploadPage() {
       </div>
 
       {/* Subtitle */}
-      <div className="flex flex-col justify-center items-center text-black font-light text-center px-6 pb-5 pt-[30px] md:pb-[30px] md:pt-10 text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
+      <div className="flex flex-col justify-center items-center text-black font-light text-center px-6 pt-7.5 md:pb-7.5 md:pt-10 text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] opacity-80">
         เริ่มต้นกรอกข้อมูล บอกเราเกี่ยวกับตัวคุณ เพื่อประหยัดเวลาของคุณ
         กรุณากรอกข้อมูลที่เป็นความจริงและครบถ้วน
       </div>
@@ -72,13 +74,13 @@ export default function ResumeUploadPage() {
       {/* Form */}
       <form
         action={submitResume}
-        className="grid justify-center items-center px-4 md:px-0"
+        className="grid justify-center items-center px-4 md:px-0 py-10 lg:py-0"
       >
         <div className="pb-2.5 font-normal text-[18px] md:text-[24px] leading-[85%] tracking-[-2.5%] text-[#D43737]">
           *required
         </div>
 
-        <div className="grid gap-6 p-6 md:p-[50px] w-full md:w-[1114px] max-w-[1114px] h-auto shadow-[0px_4px_20px_0px_#00000040] rounded-[20px] bg-white">
+        <div className="grid gap-6 p-6 md:p-12.5 w-full md:w-278.5 max-w-278.5 h-auto shadow-[0px_4px_20px_0px_#00000040] rounded-[20px] bg-white">
           {/* Email */}
           <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full gap-2 md:gap-0">
             <label
@@ -92,7 +94,7 @@ export default function ResumeUploadPage() {
               id="email"
               name="email"
               autoComplete="on"
-              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
+              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-127.25 h-12.5 md:h-15 p-2.5"
               placeholder="Example@email.com"
               required
             />
@@ -112,7 +114,7 @@ export default function ResumeUploadPage() {
               autoComplete="on"
               id="phone"
               name="phone"
-              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
+              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-127.25 h-12.5 md:h-15 p-2.5"
               placeholder="0801234567"
               required
             />
@@ -123,13 +125,13 @@ export default function ResumeUploadPage() {
             <div className="font-light text-black text-[24px] md:text-[32px] leading-[85%] tracking-[-2.5%]">
               ชื่อ-นามสกุล
             </div>
-            <div className="flex justify-between gap-2 w-full md:w-[509px]">
+            <div className="flex justify-between gap-2 w-full md:w-127.25">
               <input
                 type="text"
                 id="first_name"
                 name="first_name"
                 autoComplete="on"
-                className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] p-2.5 h-[50px] md:h-[60px] w-[calc(50%-4px)]"
+                className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] p-2.5 h-12.5 md:h-15 w-[calc(50%-4px)]"
                 placeholder="ชื่อ"
                 required
               />
@@ -138,7 +140,7 @@ export default function ResumeUploadPage() {
                 id="last_name"
                 name="last_name"
                 autoComplete="on"
-                className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] p-2.5 h-[50px] md:h-[60px] w-[calc(50%-4px)]"
+                className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] p-2.5 h-12.5 md:h-15 w-[calc(50%-4px)]"
                 placeholder="นามสกุล"
                 required
               />
@@ -156,7 +158,7 @@ export default function ResumeUploadPage() {
               type="text"
               id="position"
               name="position"
-              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-[509px] h-[50px] md:h-[60px] p-2.5"
+              className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full md:w-127.25 h-12.5 md:h-15 p-2.5"
               placeholder="ตำแหน่ง"
               required
             />
@@ -180,20 +182,20 @@ export default function ResumeUploadPage() {
                 setFile(selectedFile);
               }}
               className="flex items-center border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] 
-              w-full md:w-[509px] h-[50px] md:h-[60px] p-0 overflow-hidden
+              w-full md:w-127.25 h-12.5 md:h-15 p-0 overflow-hidden
               file:h-full file:px-4 file:py-0 file:rounded-[10px] file:border-0 file:text-[16px] file:font-medium 
               file:bg-[#E5E7EB] file:text-black hover:file:bg-[#D1D5DB] cursor-pointer"
             />
           </div>
 
-          <input type="hidden" name="resume_file_name" value={''} />
-          <input type="hidden" name="resume_url" value={''} />
+          <input type="hidden" name="resume_file_name" value={""} />
+          <input type="hidden" name="resume_url" value={""} />
 
           {/* Submit Button */}
           <div className="flex justify-center md:justify-end w-full mt-6">
             <button
               type="button"
-              className="bg-[#171717] hover:bg-[#333333] text-white font-medium text-[18px] md:text-[20px] px-[30px] md:px-10 py-2.5 rounded-[10px] shadow-md transition-all duration-200"
+              className="bg-[#171717] hover:bg-[#333333] text-white font-medium text-[18px] md:text-[20px] px-7.5 md:px-10 py-2.5 rounded-[10px] shadow-md transition-all duration-200"
               onClick={handleSubmit}
               disabled={uploading}
             >
@@ -259,4 +261,4 @@ export default function ResumeUploadPage() {
       )}
     </div>
   );
-};
+}

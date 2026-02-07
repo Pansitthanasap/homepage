@@ -4,7 +4,7 @@ import { submitContactForm } from "@/app/actions/contact-us";
 
 export default function ContactUs() {
   return (
-    <div className="relative h-[200vh]" id="contact-us">
+    <div className="relative h-[200vh] lg:h-[150vh]" id="contact-us">
       <Image
         src={contact_us_bg}
         alt="Contact Us Background"
@@ -28,14 +28,14 @@ export default function ContactUs() {
                   name="first_name"
                   placeholder="ชื่อ"
                   required
-                  className="border border-gray-300 rounded-2xl px-4 h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="border border-gray-300 rounded-2xl px-4 h-17.5 focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
                 <input
                   type="text"
                   name="last_name"
                   placeholder="นามสกุล"
                   required
-                  className="border border-gray-300 rounded-2xl px-4 h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="border border-gray-300 rounded-2xl px-4 h-17.5 focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
                 <input
                   type="tel"
@@ -44,14 +44,14 @@ export default function ContactUs() {
                   autoComplete="on"
                   placeholder="หมายเลขโทรศัพท์มือถือ"
                   required
-                  className="border border-gray-300 rounded-2xl px-4 h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="border border-gray-300 rounded-2xl px-4 h-17.5 focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
                 <input
                   type="email"
                   name="email"
                   placeholder="อีเมล"
                   required
-                  className="border border-gray-300 rounded-2xl px-4 h-[70px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="border border-gray-300 rounded-2xl px-4 h-17.5 focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
               </div>
             </div>
@@ -66,7 +66,7 @@ export default function ContactUs() {
                 name="topic"
                 placeholder="เลือกหรือพิมพ์หัวข้อ"
                 required
-                className="border border-gray-300 rounded-2xl px-4 py-2 h-[70px] w-full focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="border border-gray-300 rounded-2xl px-4 py-2 h-17.5 w-full focus:outline-none focus:ring-2 focus:ring-green-400"
               />
               <datalist id="contact-topics">
                 <option value="ข้อมูลนักลงทุน" />
