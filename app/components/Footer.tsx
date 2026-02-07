@@ -102,8 +102,8 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-1 lg:gap-0">
             <div className="text-2xl font-bold text-white">ร่วมงานกับเรา</div>
-            <Link href="/profile-upload" className="text-base text-gray-400">
-              ดูตำแหน่งที่เปิดรับ
+            <Link href="/join-us" className="text-base text-gray-400">
+              ส่งโปรไฟล์ของคุณ
             </Link>
           </div>
         </div>
