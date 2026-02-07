@@ -218,7 +218,7 @@ export default function ResumeUploadPage() {
           onClick={() => setOpenModal(false)}
         >
           <div
-            className="bg-white rounded-[20px] shadow-lg w-[90%] max-w-[600px] p-6"
+            className="bg-white rounded-[20px] shadow-lg w-[90%] max-w-150 p-6"
             onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
           >
             <div className="flex justify-between items-center border-b pb-3">

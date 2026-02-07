@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full lg:h-64 md:h-48">
+    <footer className="relative w-full lg:h-64 h-48 lg:pt-0 pt-10">
       <svg
         viewBox="0 0 1440 512"
         fill="none"
@@ -72,15 +72,15 @@ export default function Footer() {
       </svg>
       <div className="absolute bottom-0 w-full lg:h-64 flex flex-col justify-center items-center gap-4 overflow-auto bg-[#073328]">
         <div className="flex flex-col lg:flex-row w-full justify-between px-8 py-4 gap-6 lg:gap-0">
-          <div className="flex justify-center items-center gap-0 lg:gap-4">
-            <div className="py-5 lg:py-0">
+          <div className="flex justify-center items-center text-center lg:text-start gap-4">
+            <div className="gap-4 py-5 lg:py-0">
               <Image src={logoSmall} alt="logo" />
             </div>
             <div className="flex flex-col">
-              <div className="text-white text-3xl font-bold font-[Crimson_Text] hidden lg:block">
+              <div className="text-white text-base lg:text-3xl font-bold font-[Crimson_Text] ">
                 We Build Teams That Build Your Business
               </div>
-              <div className="text-white text-2xl hidden lg:block">
+              <div className="text-white text-sm lg:text-2xl ">
                 เราสร้างทีมให้คุณ เพื่อสร้างธุรกิจให้โต
               </div>
             </div>
@@ -90,9 +90,9 @@ export default function Footer() {
             <Link href="#insights" className="text-base text-gray-400">
               Why Choose Us
             </Link>
-            <Link href="#testimonials" className="text-base text-gray-400">
+            {/* <Link href="#testimonials" className="text-base text-gray-400">
               Testimonials / Case Study
-            </Link>
+            </Link> */}
           </div>
           <div className="flex flex-col gap-1 lg:gap-0">
             <div className="text-2xl font-bold text-white">บริการของเรา</div>
