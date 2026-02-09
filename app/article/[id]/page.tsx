@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { use, useEffect, useState } from "react";
+import { getArticleById } from "@/app/actions/article";
 
 export interface Article {
   title: string;
@@ -14,32 +16,45 @@ export interface Article {
 export default function ArticleById({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const article: Article = {
-    title: "HR Setup 101",
-    image: null,
-    description: `
-    <p>สอนเจ้าของ <strong>SME</strong> วางระบบ HR ตั้งแต่เริ่ม</p>
-    <ul>
-      <li>โครงสร้างองค์กร</li>
-      <li>JD & KPI</li>
-      <li>ระบบเงินเดือน</li>
-    </ul>
-  `,
-    content: `
-    <h2>โครงสร้างองค์กร</h2>
-    <p>การวางโครงสร้างองค์กรเป็นสิ่งสำคัญสำหรับการเติบโตของธุรกิจ...</p>
-    <h2>JD & KPI</h2>
-    <p>การกำหนดหน้าที่ความรับผิดชอบ (JD) และตัวชี้วัดผลการปฏิบัติงาน (KPI)...</p>
-    <h2>ระบบเงินเดือน</h2>
-    <p>การวางระบบเงินเดือนที่เหมาะสมช่วยให้ธุรกิจสามารถดึงดูดและรักษาพนักงานที่มีคุณภาพ...</p>
-    `,
-    createdAt: new Date("2025-10-25"),
-    updatedAt: new Date("2025-10-05"),
-  };
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+  const id = use<{ id: string }>(params).id;
+
+  useEffect(() => {
+    const loadArticle = async () => {
+      try {
+        const data = await getArticleById(parseInt(id, 10));
+        if (data?.success && data.article) {
+          setArticle(data.article);
+        }
+      } catch (error) {
+        console.error("Failed to load article:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadArticle();
+  }, [id]);
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!article) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl">Article not found</div>
+      </div>
+    );
+  }
 
   const shareTo = (platform: "line" | "facebook" | "x") => {
     let url = "";
@@ -121,7 +136,9 @@ export default function ArticleById({
                 />
               </defs>
             </svg>
-            <div className="text-2xl text-black">{article.updatedAt}</div>
+            <div className="text-2xl text-black">
+              {new Date(article.updatedAt).toLocaleDateString()}
+            </div>
           </div>
           {/* share to ... */}
           <div className="flex gap-3 items-center">

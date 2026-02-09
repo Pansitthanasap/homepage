@@ -1,39 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { Article as IArticle } from "../sections/Articles";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getArticles } from "@/app/actions/article";
+
+interface Article {
+  id: number;
+  title: string;
+  description: string;
+  image: string | null;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default function Article() {
-  const [articles] = useState<IArticle[]>([
-    {
-      id: 1,
-      title: "HR Setup 101",
-      description: "สอนเจ้าของ SME วางระบบ HR ตั้งแต่เริ่ม",
-    },
-    {
-      id: 2,
-      title: "Recruitment & Retention",
-      description: "วิธีหาคนเก่ง และลดอัตราลาออก",
-    },
-    {
-      id: 3,
-      title: "Performance & KPI",
-      description: "การประเมินผลที่เหมาะกับธุรกิจเล็ก",
-    },
-    {
-      id: 4,
-      title: "Payroll & Compliance",
-      description: "ทำเงินเดือนให้ถูกต้องตามกฎหมายแรงงาน",
-    },
-    {
-      id: 5,
-      title: "Payroll & Compliance",
-      description: "ทำเงินเดือนให้ถูกต้องตามกฎหมายแรงงาน",
-    },
-  ]);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadArticles = async () => {
+    setLoading(true);
+    const result = await getArticles();
+    if (result.success) {
+      setArticles(result.articles);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadArticles();
+  }, []);
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       <svg
         viewBox="0 0 1440 628"
         fill="none"
@@ -123,19 +122,24 @@ export default function Article() {
           />
         </defs>
       </svg>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-10 pb-60 px-11">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 pt-10 pb-60 px-11">
         {articles.map((article, index) => (
           <Link
             key={index}
-            className="bg-[#95E999] rounded-3xl p-6 flex flex-col items-center text-black hover:scale-105 transition-transform cursor-pointer"
+            className="bg-[#95E999] rounded-3xl p-4 md:p-6 flex flex-col items-center text-black hover:scale-105 transition-transform cursor-pointer"
             href={`/article/${article.id}`}
           >
-            <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-4">
+            <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-3 md:mb-4">
               {/* Placeholder for image */}
             </div>
+
             <div className="w-full">
-              <div className="text-2xl font-bold">{article.title}</div>
-              <p className="text-gray-700 mt-1">{article.description}</p>
+              <div className="text-lg md:text-2xl font-bold overflow-hidden">
+                {article.title}
+              </div>
+              <p className="text-gray-700 mt-1 overflow-hidden text-sm md:text-base">
+                {article.description}
+              </p>
             </div>
           </Link>
         ))}

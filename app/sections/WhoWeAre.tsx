@@ -16,32 +16,25 @@ export default function WhoWeAre() {
       result: "ได้ คนที่ใช่ ตรงกับวัฒนธรรมองค์กร ลดเวลาในการหาคน",
       content: (
         <div className="flex flex-col gap-4 text-3xl">
-          <p>
-            สรรหาและคัดกรองบุคลากรคุณภาพ ส่งรายชื่อภายใน 5-7 วัน
-          </p>
+          <p>สรรหาและคัดกรองบุคลากรคุณภาพ ส่งรายชื่อภายใน 5-7 วัน</p>
           <div className="flex flex-col gap-2">
             <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
-            <p>
-              ได้ คนที่ใช่ ตรงกับวัฒนธรรมองค์กร ลดเวลาในการหาคน
-            </p>
+            <p>ได้ คนที่ใช่ ตรงกับวัฒนธรรมองค์กร ลดเวลาในการหาคน</p>
           </div>
         </div>
       ),
     },
     {
       title: "HR Setup & System Design",
-      description: "สร้างระบบ HR ตั้งแต่เริ่มต้น เช่น JD, KPI, Onboarding Process",
+      description:
+        "สร้างระบบ HR ตั้งแต่เริ่มต้น เช่น JD, KPI, Onboarding Process",
       result: "มีระบบบริหารคนที่เป็นมาตรฐาน พร้อมใช้งานจริง",
       content: (
         <div className="flex flex-col gap-4 text-3xl">
-          <p>
-            สร้างระบบ HR ตั้งแต่เริ่มต้น เช่น JD, KPI, Onboarding Process
-          </p>
+          <p>สร้างระบบ HR ตั้งแต่เริ่มต้น เช่น JD, KPI, Onboarding Process</p>
           <div className="flex flex-col gap-2">
             <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
-            <p>
-              มีระบบบริหารคนที่เป็นมาตรฐาน พร้อมใช้งานจริง
-            </p>
+            <p>มีระบบบริหารคนที่เป็นมาตรฐาน พร้อมใช้งานจริง</p>
           </div>
         </div>
       ),
@@ -52,14 +45,10 @@ export default function WhoWeAre() {
       result: "ทีมงานมีเป้าหมายชัดเจน ผลงานองค์กรเพิ่มขึ้น",
       content: (
         <div className="flex flex-col gap-4 text-3xl">
-          <p>
-            วางระบบประเมินผล / Career Path / Exit Interview
-          </p>
+          <p>วางระบบประเมินผล / Career Path / Exit Interview</p>
           <div className="flex flex-col gap-2">
             <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
-            <p>
-              ทีมงานมีเป้าหมายชัดเจน ผลงานองค์กรเพิ่มขึ้น
-            </p>
+            <p>ทีมงานมีเป้าหมายชัดเจน ผลงานองค์กรเพิ่มขึ้น</p>
           </div>
         </div>
       ),
@@ -70,14 +59,10 @@ export default function WhoWeAre() {
       result: "ได้คู่คิดที่เข้าใจธุรกิจจริง สร้างระบบคนให้เติบโตระยะยาว",
       content: (
         <div className="flex flex-col gap-4 text-3xl">
-          <p>
-            ให้คำปรึกษาเชิงกลยุทธ์โดยตรงกับเจ้าของธุรกิจ (CEO)
-          </p>
+          <p>ให้คำปรึกษาเชิงกลยุทธ์โดยตรงกับเจ้าของธุรกิจ (CEO)</p>
           <div className="flex flex-col gap-2">
             <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
-            <p>
-              ได้คู่คิดที่เข้าใจธุรกิจจริง สร้างระบบคนให้เติบโตระยะยาว
-            </p>
+            <p>ได้คู่คิดที่เข้าใจธุรกิจจริง สร้างระบบคนให้เติบโตระยะยาว</p>
           </div>
         </div>
       ),
@@ -88,14 +73,10 @@ export default function WhoWeAre() {
       result: "ได้ คนที่ใช่ ตรงกับวัฒนธรรมองค์กร ลดเวลาในการหาคน",
       content: (
         <div className="flex flex-col gap-4 text-3xl">
-          <p>
-            สรรหาและคัดกรองบุคลากรคุณภาพ ส่งรายชื่อภายใน 5-7 วัน
-          </p>
+          <p>สรรหาและคัดกรองบุคลากรคุณภาพ ส่งรายชื่อภายใน 5-7 วัน</p>
           <div className="flex flex-col gap-2">
             <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
-            <p>
-              ได้ คนที่ใช่ ตรงกับวัฒนธรรมองค์กร ลดเวลาในการหาคน
-            </p>
+            <p>ได้ คนที่ใช่ ตรงกับวัฒนธรรมองค์กร ลดเวลาในการหาคน</p>
           </div>
         </div>
       ),
@@ -104,7 +85,7 @@ export default function WhoWeAre() {
   const [activeIndex, setActiveIndex] = useState<keyof typeof whatWeCanDo>(0);
 
   return (
-    <div className="relative flex flex-col justify-center content-center h-screen px-16 py-4 gap-4 bg-[#FFF7EC]">
+    <div className="relative flex flex-col justify-center content-center lg:h-screen h-full px-13 lg:px-16 py-10 lg:py-14 gap-4 bg-[#FFF7EC]">
       <svg
         viewBox="0 0 1440 322"
         fill="none"
@@ -169,51 +150,57 @@ export default function WhoWeAre() {
           </clipPath>
         </defs>
       </svg>
-      <div className="text-black text-5xl font-bold text-end">
+      <div className="text-black lg:text-6xl text-4xl font-bold text-end">
         เราคือทีม <span className="text-[#95E999]">HR Co-Pilot</span> <br />
         ที่เข้าใจ SME และ Startup อย่างแท้จริง
       </div>
-      <div className="text-gray-500 text-xl text-end">
-        “คุณโฟกัสที่การเติบโตของธุรกิจ ส่วนเราดูแลเรื่อง <span className="font-bold">คน</span> ให้ทั้งหมด”
+      <div className="text-gray-500 lg:text-2xl text-xl text-end">
+        “คุณโฟกัสที่การเติบโตของธุรกิจ ส่วนเราดูแลเรื่อง{" "}
+        <span className="font-bold">คน</span> ให้ทั้งหมด”
         เราไม่ได้แค่จัดหาพนักงาน แต่เราช่วยวางระบบ HR ที่ยั่งยืนตั้งแต่วันแรก
       </div>
-      <div className="flex h-full gap-4 text-black z-5 overflow-hidden">
+      <div className="flex flex-col md:flex-row h-full gap-4 z-5 text-black overflow-hidden">
         {whatWeCanDo.map((option, index) => {
           const isActive = index === activeIndex;
+
           return (
             <div
               key={index}
-              className={`flex justify-center content-center bg-[#95E999]${isActive ? " w-5/9" : " w-1/9 opacity-80"} cursor-pointer transition-all duration-500 ease-in-out`}
               onClick={() => setActiveIndex(index)}
+              className={`
+          flex justify-center items-center
+          bg-[#95E999]
+          cursor-pointer
+          transition-all duration-500 ease-in-out
+          w-full
+          md:${isActive ? "w-5/9" : "w-1/9 opacity-80 "}
+        `}
             >
-              {isActive ?
-                (
-                  <div
-                    className="flex flex-col items-center justify-center p-8 h-full w-full gap-4"
-                  >
-                    <div className="text-center text-4xl font-bold">
-                      {option.title}
-                    </div>
-                    <div className="flex flex-col gap-4 text-3xl">
-                      <p>
-                        {option.description}
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
-                        <p>
-                          {option.result}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    className="text-center text-xl font-bold [writing-mode:sideways-lr]"
-                  >
+              {isActive ? (
+                <div className="flex flex-col items-center justify-center p-4 md:p-8 h-full w-full gap-4">
+                  <div className="text-center text-lg md:text-4xl font-bold">
                     {option.title}
                   </div>
-                )
-              }
+
+                  <div className="flex flex-col gap-4 text-sm md:text-3xl text-center md:text-left">
+                    <p>{option.description}</p>
+
+                    <div className="flex flex-col gap-2">
+                      <p className="font-bold">ผลลัพธ์ที่ลูกค้าได้รับ</p>
+                      <p>{option.result}</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className="
+              text-center text-lg md:text-xl font-bold p-4
+              md:[writing-mode:sideways-lr]
+            "
+                >
+                  {option.title}
+                </div>
+              )}
             </div>
           );
         })}
