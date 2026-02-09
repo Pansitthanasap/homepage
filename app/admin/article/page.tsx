@@ -10,7 +10,7 @@ import {
 } from "@/app/actions/article";
 import { upload } from "@vercel/blob/client";
 import type { PutBlobResult } from "@vercel/blob";
-import Quill from "quill";
+import type Quill from "quill";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 
@@ -62,10 +62,15 @@ export default function ArticleAdminPage() {
   const quillEditorRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!quillEditorRef.current || quill) return;
-    const editor = new Quill(quillEditorRef.current, {
-      theme: "snow",
+    
+    // Dynamically import Quill only on client side
+    import("quill").then((QuillModule) => {
+      const QuillConstructor = QuillModule.default;
+      const editor = new QuillConstructor(quillEditorRef.current!, {
+        theme: "snow",
+      });
+      setQuill(editor);
     });
-    setQuill(editor);
   }, [quill]);
 
   useEffect(() => {
