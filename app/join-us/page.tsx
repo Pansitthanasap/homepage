@@ -6,15 +6,15 @@ import LogoBlack from "../../public/logo-black.png";
 
 export default function JoinUs() {
   return (
-    <div className="relative flex flex-col items-center justify-center">
+    <div className=" flex flex-col items-center justify-center h-[170vh] lg:h-[120vh]">
       {/* Background image */}
       <Image
         src={JoinUsBackground}
         alt="Background"
-        className="blur-sm w-full"
+        className="blur-sm h-full w-auto lg:h-auto lg:w-full"
         loading="eager"
       />
-      <div className="absolute left-0 top-0 flex flex-col w-full h-full justify-center items-center gap-10">
+      <div className="absolute left-0 top-15 lg:top-0 flex flex-col w-full h-full justify-center items-center gap-10">
         {/* Title Section */}
         <div className="bg-white/50">
           <div className="font-light text-black md:text-[40px] lg:text-[64px] text-center align-middle opacity-100 px-8 py-4">
@@ -23,28 +23,25 @@ export default function JoinUs() {
         </div>
 
         {/* Upload Box */}
-        <div className="flex flex-col h-auto w-full max-w-md bg-white rounded-[10px] p-6 px-20 py-10 gap-20 items-center justify-center">
-          <Image src={portfolio} alt="portfolio" className="w-[92px] h-auto" />
-          <div className="flex flex-col gap-10">
-            <div className="text-black text-[36px] font-bold leading-[85%] tracking-[-0.025em] text-center align-middle">
+        <div className="flex flex-col h-auto w-auto max-w-md bg-white rounded-[10px] p-6 py-10 gap-20 items-center justify-center">
+          <Image src={portfolio} alt="portfolio" className="w-23 h-auto" />
+          <div className="flex flex-col gap-10 w-70">
+            <div className="text-black text-2xl lg:text-4xl font-bold leading-[85%] tracking-[-0.025em] text-center align-middle">
               กรอกข้อมูลผู้สมัคร
             </div>
-            <div className="text-black text-[20px] font-normal leading-[100%] tracking-normal text-center align-middle">
+            <div className="text-black text-base lg:text-xl font-normal leading-[100%] tracking-normal text-center align-middle">
               กรอกประวัติ อัพโหลด Resume บอกเล่าเรื่องราวเกี่ยวกับตัวคุณ
             </div>
           </div>
           <Link
             href="/upload-resume"
-            className="w-[332px] h-[66px] bg-[#95E999] rounded-[5px] cursor-pointer hover:bg-[#73cc72] transition-colors text-center text-white text-[32px] flex justify-center items-center"
+            className="w-auto h-16.5 bg-[#95E999] rounded-[5px] cursor-pointer hover:bg-[#73cc72] transition-colors text-center text-white text-xl lg:text-3xl flex justify-center items-center"
           >
-            ไปกรอกข้อมูล
+            <div className="w-40 lg:w-83">ไปกรอกข้อมูล</div>
           </Link>
         </div>
       </div>
-      <Link
-        href="/"
-        className="absolute top-4 left-4 w-[46px] cursor-pointer"
-      >
+      <Link href="/" className="absolute top-4 left-4 w-11.5 cursor-pointer">
         <Image src={LogoBlack} alt="Background" />
       </Link>
     </div>

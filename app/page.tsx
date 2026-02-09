@@ -18,17 +18,17 @@ export default function Home() {
     <div>
       <header className="fixed top-0 flex w-full justify-between z-10 p-4 pointer-events-none">
         <Link href="#slogan" className="pointer-events-auto">
-          <Image
-            src={logo}
-            alt="Logo"
-          />
+          <Image src={logo} alt="Logo" />
         </Link>
-        <Navbar className="pointer-events-auto" links={[
-          { label: "Packages", href: "#packages" },
-          { label: "Insights", href: "#insights" },
-          { label: "About Us", href: "#about-us" },
-          { label: "Contact Us", href: "#contact-us" },
-        ]} />
+        <Navbar
+          className="pointer-events-auto"
+          links={[
+            { label: "Packages", href: "#packages" },
+            { label: "Insights", href: "#insights" },
+            { label: "About Us", href: "#about-us" },
+            { label: "Contact Us", href: "#contact-us" },
+          ]}
+        />
         <div></div>
       </header>
       <main>
@@ -37,7 +37,7 @@ export default function Home() {
         <WhoWeAre />
         <Packages />
         <Insights />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <AboutUs />
         <Articles />
         <ContactUs />

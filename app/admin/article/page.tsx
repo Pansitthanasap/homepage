@@ -198,13 +198,13 @@ export default function ArticleAdminPage() {
         )}
 
         {/* Form card – same position as article read: image left, title/description right */}
-        <div className="p-6 md:p-10 w-full max-w-[1114px] border-[3px] border-[#95E999] rounded-[40px] bg-white shadow-[0px_4px_20px_0px_#00000020]">
+        <div className="p-6 md:p-10 w-full max-w-278.5 border-[3px] border-[#95E999] rounded-[40px] bg-white shadow-[0px_4px_20px_0px_#00000020]">
           <form onSubmit={handleSubmit} className="flex flex-col gap-10">
             {/* Hero row: image left, title + description right (like article read page) */}
             <div className="flex flex-col md:flex-row gap-8 md:gap-10 w-full md:pt-8 md:px-10">
               {/* Left: image preview (same position as article read hero image) */}
               <div className="flex flex-col gap-4 w-full md:w-auto shrink-0">
-                <div className="flex relative w-full md:w-[380px] h-[280px] md:h-[320px] border-[3px] border-[#95E999] rounded-[40px] overflow-hidden bg-gray-100 items-center justify-center">
+                <div className="flex relative w-full md:w-95 h-70 md:h-80 border-[3px] border-[#95E999] rounded-[40px] overflow-hidden bg-gray-100 items-center justify-center">
                   {displayImageUrl ? (
                     <img
                       src={displayImageUrl}
@@ -222,7 +222,7 @@ export default function ArticleAdminPage() {
                   type="file"
                   accept={IMAGE_ACCEPT}
                   onChange={handleImageChange}
-                  className="flex items-center border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full h-[50px] md:h-[60px] p-0 overflow-hidden file:h-full file:px-4 file:py-0 file:rounded-l-[10px] file:border-0 file:text-[16px] file:font-medium file:bg-[#E5E7EB] file:text-black hover:file:bg-[#D1D5DB] cursor-pointer"
+                  className="flex items-center border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full h-12.5 md:h-15 p-0 overflow-hidden file:h-full file:px-4 file:py-0 file:rounded-l-[10px] file:border-0 file:text-[16px] file:font-medium file:bg-[#E5E7EB] file:text-black hover:file:bg-[#D1D5DB] cursor-pointer"
                 />
               </div>
 
@@ -241,7 +241,7 @@ export default function ArticleAdminPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, title: e.target.value })
                     }
-                    className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full h-[50px] md:h-[60px] px-2.5"
+                    className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full h-12.5 md:h-15 px-2.5"
                     required
                   />
                 </div>
@@ -255,7 +255,7 @@ export default function ArticleAdminPage() {
                       setFormData({ ...formData, description: e.target.value })
                     }
                     rows={4}
-                    className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full p-2.5 resize-y min-h-[120px]"
+                    className="border border-black text-gray-900 text-[18px] md:text-[20px] font-light rounded-[10px] w-full p-2.5 resize-y min-h-30"
                     required
                   />
                 </div>
@@ -268,10 +268,10 @@ export default function ArticleAdminPage() {
                 Content
               </label>
               <div
-                className="w-full min-h-[240px] border border-black rounded-[10px] overflow-hidden bg-white resize-y"
+                className="w-full min-h-60 border border-black rounded-[10px] overflow-hidden bg-white resize-y"
                 style={{ minHeight: "240px" }}
               >
-                <div ref={quillEditorRef} className="h-full min-h-[200px]" />
+                <div ref={quillEditorRef} className="h-full min-h-50" />
               </div>
             </div>
 
@@ -301,7 +301,7 @@ export default function ArticleAdminPage() {
         </div>
 
         {/* Articles List */}
-        <div className="mt-10 border-[3px] border-[#95E999] rounded-[40px] p-6 md:p-10 max-w-[1114px] w-full bg-white shadow-[0px_4px_20px_0px_#00000020]">
+        <div className="mt-10 border-[3px] border-[#95E999] rounded-[40px] p-6 md:p-10 max-w-278.5 w-full bg-white shadow-[0px_4px_20px_0px_#00000020]">
           <h2 className="font-bold text-2xl md:text-3xl text-[#95E999] mb-6">
             Published Articles ({articles.length})
           </h2>

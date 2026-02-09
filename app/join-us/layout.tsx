@@ -5,5 +5,10 @@ export default function JoinUsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}<Footer /></>;
+  return (
+    <>
+      {children}
+      <Footer />
+    </>
+  );
 }
