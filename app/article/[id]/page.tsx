@@ -140,6 +140,11 @@ export default function ArticleById({
               {new Date(article.updatedAt).toLocaleDateString()}
             </div>
           </div>
+          {/* description */}
+          <div className="text-lg text-gray-600 italic border-t border-b py-4">
+            {article.description}
+          </div>
+
           {/* share to ... */}
           <div className="flex gap-3 items-center">
             <div className="text-2xl text-black">แชร์ไปยัง</div>
@@ -260,7 +265,13 @@ export default function ArticleById({
           </div>
         </div>
       </div>
-      {article.description}
+
+      <div className="flex flex-col gap-6 px-15 pb-20">
+        <div 
+          className="prose prose-lg max-w-none text-gray-800"
+          dangerouslySetInnerHTML={{ __html: article.content }}
+        />
+      </div>
     </div>
   );
 }
