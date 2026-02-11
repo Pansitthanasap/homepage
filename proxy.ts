@@ -27,7 +27,7 @@ export async function proxy(req: NextRequest) {
     session?.userId
     // !req.nextUrl.pathname.startsWith('/admin')
   ) {
-    return NextResponse.redirect(new URL('/admin/dashboard', req.nextUrl))
+    return NextResponse.redirect(new URL('/admin/contacts', req.nextUrl))
   }
  
   return NextResponse.next()

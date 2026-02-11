@@ -23,5 +23,5 @@ export async function login(state: { error: string } | undefined, data: FormData
 
   await createSession(admin.id)
 
-  redirect('/admin/dashboard');
+  redirect('/admin/contacts');
 }

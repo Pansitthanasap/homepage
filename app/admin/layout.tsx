@@ -9,7 +9,6 @@ export default function AdminLayout({
     <>
       <header className="fixed top-0 flex w-full justify-center z-10 p-4">
         <Navbar links={[
-          { label: "Dashboard", href: "/admin/dashboard" },
           { label: "Applicants", href: "/admin/applicants" },
           { label: "Contacts", href: "/admin/contacts" },
           { label: "Article", href: "/admin/article" }
