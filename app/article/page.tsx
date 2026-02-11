@@ -129,8 +129,14 @@ export default function Article() {
             className="bg-[#95E999] rounded-3xl p-4 md:p-6 flex flex-col items-center text-black hover:scale-105 transition-transform cursor-pointer"
             href={`/article/${article.id}`}
           >
-            <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-3 md:mb-4">
-              {article.image}
+            <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-3 md:mb-4 overflow-hidden">
+              {article.image ? (
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : null}
             </div>
 
             <div className="w-full">
