@@ -62,7 +62,7 @@ export default function ArticleAdminPage() {
   const quillEditorRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!quillEditorRef.current || quill) return;
-    
+
     // Dynamically import Quill only on client side
     import("quill").then((QuillModule) => {
       const QuillConstructor = QuillModule.default;
@@ -276,7 +276,10 @@ export default function ArticleAdminPage() {
                 className="w-full min-h-60 border border-black rounded-[10px] overflow-hidden bg-white resize-y"
                 style={{ minHeight: "240px" }}
               >
-                <div ref={quillEditorRef} className="h-full min-h-50" />
+                <div
+                  ref={quillEditorRef}
+                  className="h-full min-h-50 text-black"
+                />
               </div>
             </div>
 
@@ -337,11 +340,11 @@ export default function ArticleAdminPage() {
                       <div className="text-sm text-gray-500">
                         Created:{" "}
                         {new Date(article.createdAt).toLocaleDateString(
-                          "th-TH"
+                          "th-TH",
                         )}{" "}
                         | Updated:{" "}
                         {new Date(article.updatedAt).toLocaleDateString(
-                          "th-TH"
+                          "th-TH",
                         )}
                       </div>
                     </div>

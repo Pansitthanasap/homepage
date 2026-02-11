@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { getArticleById } from "@/app/actions/article";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
 
 export interface Article {
   title: string;
@@ -62,17 +64,17 @@ export default function ArticleById({
     switch (platform) {
       case "line":
         url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
-          shareUrl
+          shareUrl,
         )}`;
         break;
       case "facebook":
         url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          shareUrl
+          shareUrl,
         )}`;
         break;
       case "x":
         url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          shareUrl
+          shareUrl,
         )}`;
         break;
     }
@@ -82,8 +84,8 @@ export default function ArticleById({
 
   return (
     <div className="flex flex-col gap-10 bg-white min-h-screen">
-      <div className="flex pt-31 px-15 gap-10">
-        <div className="flex relative w-154.75 h-115.25 border-10 rounded-[40px] border-[#95E999] overflow-hidden items-center justify-center">
+      <div className="flex lg:flex-row flex-col pt-31 px-15 gap-10">
+        <div className="flex relative h-[30vh] lg:w-154.75 lg:h-115.25 border-10 rounded-[40px] border-[#95E999] overflow-hidden items-center justify-center">
           {article.image ? (
             <Image
               src={article.image}
@@ -93,7 +95,14 @@ export default function ArticleById({
               priority
             />
           ) : (
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-100"><path d="M7.828 5l-1-1H22v15.172l-1-1v-.69l-3.116-3.117-.395.296-.714-.714.854-.64a.503.503 0 0 1 .657.046L21 16.067V5zM3 20v-.519l2.947-2.947a1.506 1.506 0 0 0 .677.163 1.403 1.403 0 0 0 .997-.415l2.916-2.916-.706-.707-2.916 2.916a.474.474 0 0 1-.678-.048.503.503 0 0 0-.704.007L3 18.067V5.828l-1-1V21h16.172l-1-1zM17 8.5A1.5 1.5 0 1 1 15.5 7 1.5 1.5 0 0 1 17 8.5zm-1 0a.5.5 0 1 0-.5.5.5.5 0 0 0 .5-.5zm5.646 13.854l.707-.707-20-20-.707.707z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-100"
+            >
+              <path d="M7.828 5l-1-1H22v15.172l-1-1v-.69l-3.116-3.117-.395.296-.714-.714.854-.64a.503.503 0 0 1 .657.046L21 16.067V5zM3 20v-.519l2.947-2.947a1.506 1.506 0 0 0 .677.163 1.403 1.403 0 0 0 .997-.415l2.916-2.916-.706-.707-2.916 2.916a.474.474 0 0 1-.678-.048.503.503 0 0 0-.704.007L3 18.067V5.828l-1-1V21h16.172l-1-1zM17 8.5A1.5 1.5 0 1 1 15.5 7 1.5 1.5 0 0 1 17 8.5zm-1 0a.5.5 0 1 0-.5.5.5.5 0 0 0 .5-.5zm5.646 13.854l.707-.707-20-20-.707.707z" />
+              <path fill="none" d="M0 0h24v24H0z" />
+            </svg>
           )}
         </div>
 
@@ -267,8 +276,8 @@ export default function ArticleById({
       </div>
 
       <div className="flex flex-col gap-6 px-15 pb-20">
-        <div 
-          className="prose prose-lg max-w-none text-gray-800"
+        <div
+          className="ql-editor max-w-none text-gray-800 text-base lg:text-xl"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
       </div>
