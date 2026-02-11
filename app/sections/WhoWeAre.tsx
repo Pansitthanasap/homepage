@@ -85,7 +85,7 @@ export default function WhoWeAre() {
   const [activeIndex, setActiveIndex] = useState<keyof typeof whatWeCanDo>(0);
 
   return (
-    <div className="relative flex flex-col justify-center content-center lg:h-screen h-full px-13 lg:px-16 py-10 lg:py-14 gap-4 bg-[#FFF7EC]">
+    <div className="relative flex flex-col justify-center content-center lg:h-screen h-full px-16 py-4 gap-4 bg-[#FFF7EC]">
       <svg
         viewBox="0 0 1440 322"
         fill="none"
@@ -178,11 +178,11 @@ export default function WhoWeAre() {
             >
               {isActive ? (
                 <div className="flex flex-col items-center justify-center p-4 md:p-8 h-full w-full gap-4">
-                  <div className="text-center text-lg md:text-4xl font-bold">
+                  <div className="text-center text-lg md:text-3xl font-bold">
                     {option.title}
                   </div>
 
-                  <div className="flex flex-col gap-4 text-sm md:text-3xl text-center md:text-left">
+                  <div className="flex flex-col gap-4 text-sm md:text-2xl text-center md:text-left">
                     <p>{option.description}</p>
 
                     <div className="flex flex-col gap-2">
