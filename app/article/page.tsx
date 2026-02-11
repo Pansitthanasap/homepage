@@ -130,7 +130,7 @@ export default function Article() {
             href={`/article/${article.id}`}
           >
             <div className="bg-white rounded-2xl w-full aspect-square flex items-center justify-center mb-3 md:mb-4">
-              {/* Placeholder for image */}
+              {article.image}
             </div>
 
             <div className="w-full">
